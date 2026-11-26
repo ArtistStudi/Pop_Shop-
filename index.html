@@ -2,431 +2,653 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Empire Boutique</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PopShop — Ma boutique</title>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg: #080b16;
-  --panel: rgba(18, 24, 46, .92);
-  --cyan: #55e6ff;
-  --purple: #9d70ff;
-  --green: #50e3a4;
-  --red: #ff647c;
-  --gold: #ffc968;
-}
-body {
-  min-height: 100vh;
-  font-family: Inter, system-ui, sans-serif;
-  color: #f7f8ff;
-  background:
-    radial-gradient(circle at 15% 10%, rgba(85,230,255,.12), transparent 25%),
-    radial-gradient(circle at 85% 20%, rgba(157,112,255,.12), transparent 25%),
-    var(--bg);
-}
-header {
-  height: 78px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 32px;
-  border-bottom: 1px solid rgba(255,255,255,.08);
-  background: rgba(8,11,22,.82);
-  backdrop-filter: blur(16px);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-.brand { display: flex; align-items: center; gap: 12px; }
-.logo {
-  width: 44px; height: 44px; border-radius: 14px;
-  display: grid; place-items: center;
-  background: linear-gradient(135deg, var(--cyan), var(--purple));
-  box-shadow: 0 0 28px rgba(85,230,255,.28);
-  font-size: 22px;
-}
-.brand h1 { font-size: 18px; }
-.brand small { color: #9ba6c7; }
-.stats { display: flex; gap: 12px; }
-.stat {
-  min-width: 130px;
-  padding: 10px 14px;
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 14px;
-  background: var(--panel);
-}
-.stat label { display: block; color: #929dbc; font-size: 11px; }
-.stat strong { color: var(--cyan); font-size: 17px; }
+  :root {
+    --ink: #26345b;
+    --muted: #7180a5;
+    --purple: #7657f6;
+    --pink: #ff6fae;
+    --cyan: #45c9e8;
+    --yellow: #ffca55;
+    --green: #28be88;
+    --red: #ef6680;
+    --paper: #fff;
+    --bg: #f2f5ff;
+    --line: #e7eaff;
+    --shadow: 0 12px 35px rgba(58, 76, 142, .10);
+  }
 
-main {
-  max-width: 1400px;
-  margin: auto;
-  display: grid;
-  grid-template-columns: 220px 1fr 290px;
-  gap: 18px;
-  padding: 18px;
-}
-aside, section {
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 20px;
-  background: var(--panel);
-}
-aside { height: fit-content; padding: 12px; }
-nav button {
-  width: 100%; height: 48px;
-  display: flex; align-items: center; gap: 10px;
-  margin-bottom: 6px; padding: 0 14px;
-  border: 0; border-radius: 12px;
-  background: transparent; color: #99a4c4;
-  font: inherit; cursor: pointer; text-align: left;
-}
-nav button.active {
-  color: white;
-  background: linear-gradient(90deg, rgba(85,230,255,.16), rgba(157,112,255,.08));
-  box-shadow: inset 3px 0 var(--cyan);
-}
-section { min-height: calc(100vh - 114px); padding: 20px; }
-.section-head {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 16px;
-}
-.section-head h2 { font-size: 21px; }
-.day-box { color: var(--gold); background: rgba(255,201,104,.08); padding: 8px 12px; border-radius: 10px; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--ink);
+    font-family: Inter, ui-rounded, "Segoe UI", system-ui, sans-serif;
+    background:
+      radial-gradient(ellipse at 8% 0%, #fff0f8 0, transparent 34%),
+      radial-gradient(ellipse at 92% 10%, #e5fbff 0, transparent 32%),
+      var(--bg);
+  }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 14px;
-}
-.card {
-  position: relative;
-  overflow: hidden;
-  min-height: 190px;
-  padding: 14px;
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 16px;
-  background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
-  transition: .2s;
-}
-.card:hover { transform: translateY(-4px); border-color: rgba(85,230,255,.28); }
-.emoji {
-  height: 76px;
-  display: grid; place-items: center;
-  font-size: 46px;
-  border-radius: 12px;
-  background: rgba(255,255,255,.04);
-  margin-bottom: 10px;
-}
-.card h3 { font-size: 15px; margin-bottom: 5px; }
-.tier { font-size: 10px; color: var(--cyan); text-transform: uppercase; }
-.price-row { display: flex; justify-content: space-between; margin: 10px 0; }
-.buy-price { color: #ff8aa0; }
-.sell-price { color: var(--green); }
-button.primary {
-  width: 100%; height: 38px;
-  border: 0; border-radius: 10px;
-  color: #09101c; font-weight: 800;
-  background: linear-gradient(135deg, var(--cyan), #78ffd1);
-  cursor: pointer;
-}
-button.primary:disabled { filter: grayscale(1); opacity: .35; cursor: not-allowed; }
+  button { font: inherit; }
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px clamp(16px, 4vw, 55px);
+    background: rgba(255,255,255,.86);
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    backdrop-filter: blur(12px);
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-icon {
+    width: 48px; height: 48px; border-radius: 16px;
+    display: grid; place-items: center; color: white; font-size: 25px;
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    box-shadow: 0 8px 18px #b69bff80;
+  }
+  .brand h1 { margin: 0; font-size: 21px; }
+  .brand small { color: var(--muted); }
+  .top-stats { display: flex; gap: 10px; }
+  .top-stat {
+    min-width: 130px; padding: 9px 14px; border-radius: 15px;
+    background: white; border: 1px solid var(--line); box-shadow: 0 4px 12px #596cb20b;
+  }
+  .top-stat span { display: block; color: var(--muted); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+  .top-stat strong { font-size: 18px; color: var(--green); }
+  .top-stat.profit strong { color: var(--purple); }
 
-.stock { font-size: 12px; color: #abb5d3; margin: 7px 0; }
-.right { padding: 14px; }
-.right h3 { margin-bottom: 12px; }
-.log {
-  height: 280px;
-  overflow-y: auto;
-  padding-right: 4px;
-}
-.log-item {
-  padding: 9px 10px;
-  margin-bottom: 7px;
-  border-left: 3px solid var(--cyan);
-  border-radius: 8px;
-  background: rgba(255,255,255,.035);
-  font-size: 12px;
-  color: #bdc5dc;
-}
-.progress-wrap { margin: 12px 0; }
-.progress {
-  height: 8px;
-  margin-top: 6px;
-  border-radius: 20px;
-  background: rgba(255,255,255,.07);
-  overflow: hidden;
-}
-.progress div { height: 100%; background: linear-gradient(90deg, var(--cyan), var(--purple)); }
-.hidden { display: none; }
+  .layout {
+    max-width: 1450px; margin: auto; padding: 24px;
+    display: grid; grid-template-columns: 220px minmax(0,1fr) 285px; gap: 18px;
+  }
+  .panel, .side-panel {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: 22px; box-shadow: var(--shadow);
+  }
+  .sidebar { padding: 12px; height: fit-content; }
+  .nav-button {
+    width: 100%; display: flex; align-items: center; gap: 11px;
+    padding: 13px 14px; margin: 3px 0; border: 0; border-radius: 13px;
+    background: transparent; color: var(--muted); text-align: left;
+    font-weight: 750; cursor: pointer; transition: .18s;
+  }
+  .nav-button:hover { background: #f5f3ff; color: var(--purple); transform: translateX(2px); }
+  .nav-button.active { color: white; background: linear-gradient(100deg, var(--purple), #a879ff); box-shadow: 0 7px 17px #9070f44d; }
+  .nav-icon { font-size: 19px; }
 
-.toast {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  transform: translateY(100px);
-  padding: 14px 18px;
-  border: 1px solid rgba(85,230,255,.25);
-  border-radius: 12px;
-  background: #141a32;
-  box-shadow: 0 12px 40px rgba(0,0,0,.45);
-  transition: .3s;
-  z-index: 20;
-}
-.toast.show { transform: translateY(0); }
+  .content { min-height: 680px; padding: 23px; }
+  .page-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+  .page-head h2 { margin: 0; font-size: 24px; }
+  .day-pill { border-radius: 999px; padding: 8px 13px; font-weight: 800; color: #966300; background: #fff5d9; }
+  .subtitle { margin: 5px 0 0; color: var(--muted); font-size: 14px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(205px, 1fr)); gap: 14px; }
+  .card {
+    overflow: hidden; padding: 15px; border: 1px solid var(--line);
+    border-radius: 18px; background: linear-gradient(145deg, #fff, #fbfaff);
+    transition: transform .18s, box-shadow .18s, border-color .18s;
+  }
+  .card:hover { transform: translateY(-3px); border-color: #c9bcff; box-shadow: 0 12px 25px #7881b51c; }
+  .item-art {
+    height: 95px; display: grid; place-items: center; margin-bottom: 12px;
+    border-radius: 14px; font-size: 49px;
+    background: linear-gradient(135deg, #fff0f7, #edfaff);
+  }
+  .tag { display: inline-block; padding: 4px 8px; border-radius: 99px; background: #f0edff; color: var(--purple); font-size: 10px; font-weight: 900; text-transform: uppercase; }
+  .card h3 { margin: 8px 0 4px; font-size: 16px; }
+  .description { min-height: 18px; color: var(--muted); font-size: 12px; }
+  .price-line { display: flex; justify-content: space-between; gap: 8px; margin: 12px 0; font-size: 12px; font-weight: 800; }
+  .cost { color: var(--pink); }
+  .sell-price { color: var(--green); }
+  .stock-info { margin: 10px 0; color: var(--muted); font-size: 13px; }
+  .primary, .secondary, .danger {
+    min-height: 39px; padding: 9px 13px; border: 0; border-radius: 11px;
+    font-weight: 850; cursor: pointer; transition: .15s;
+  }
+  .primary { width: 100%; color: white; background: linear-gradient(100deg, var(--purple), #a879ff); box-shadow: 0 5px 12px #8866ec38; }
+  .primary:hover:not(:disabled) { filter: brightness(1.06); transform: translateY(-1px); }
+  .primary:disabled { opacity: .43; cursor: not-allowed; box-shadow: none; }
+  .secondary { color: #206f8e; background: #e6f9ff; }
+  .secondary:hover { background: #d3f4ff; }
+  .danger { color: #c04661; background: #fff0f2; }
+  .empty { grid-column: 1/-1; padding: 36px 20px; text-align: center; color: var(--muted); border: 2px dashed #dfe3f7; border-radius: 17px; }
+  .hidden { display: none !important; }
 
-@media (max-width: 1000px) {
-  main { grid-template-columns: 180px 1fr; }
-  .right { display: none; }
-}
-@media (max-width: 700px) {
-  header { height: auto; padding: 12px; flex-direction: column; gap: 10px; }
-  main { grid-template-columns: 1fr; }
-  aside nav { display: flex; overflow-x: auto; }
-  nav button { min-width: 150px; }
-  section { min-height: 500px; }
-  .stats { width: 100%; }
-  .stat { flex: 1; min-width: 0; }
-}
+  .side-panel { padding: 17px; height: fit-content; }
+  .side-panel h3 { margin: 0 0 13px; font-size: 16px; }
+  .quick-card { padding: 13px; border-radius: 15px; background: linear-gradient(135deg, #f1edff, #f5faff); margin-bottom: 15px; }
+  .quick-card strong { display: block; margin-bottom: 5px; }
+  .quick-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+  .log { max-height: 275px; overflow-y: auto; }
+  .log-entry { margin: 8px 0; padding: 9px 10px; border-radius: 10px; background: #f7f8ff; color: #647294; font-size: 12px; }
+  .log-entry.good { border-left: 3px solid var(--green); }
+  .log-entry.info { border-left: 3px solid var(--cyan); }
+  .small-note { margin-top: 12px; color: var(--muted); font-size: 11px; line-height: 1.5; }
+
+  .quest-card { padding: 18px; border-radius: 18px; background: linear-gradient(135deg, #fff5d9, #fff0f8); border: 1px solid #ffe6b1; }
+  .quest-card h3 { margin: 8px 0; }
+  .quest-card p { color: var(--muted); }
+  .progress { height: 10px; overflow: hidden; border-radius: 20px; background: #e7e9f4; margin: 12px 0; }
+  .progress > div { height: 100%; background: linear-gradient(90deg, var(--pink), var(--purple)); transition: width .25s; }
+  .quiz { margin-top: 18px; padding: 18px; border-radius: 18px; background: linear-gradient(135deg, #eafaff, #f3efff); border: 1px solid #dcefff; }
+  .quiz h3 { margin: 0 0 8px; }
+  .quiz p { color: var(--muted); }
+  .answer-list { display: grid; gap: 8px; margin-top: 12px; }
+  .answer { padding: 11px 13px; border: 1px solid #dfe3f7; border-radius: 11px; color: var(--ink); background: white; text-align: left; cursor: pointer; }
+  .answer:hover:not(:disabled) { border-color: var(--purple); background: #faf8ff; }
+  .answer:disabled { cursor: default; opacity: .75; }
+  .feedback { min-height: 22px; margin-top: 10px; font-size: 13px; font-weight: 800; }
+  .employee-banner { padding: 14px; border-radius: 14px; background: #eafff6; color: #257557; margin-bottom: 15px; }
+  .toast {
+    position: fixed; right: 20px; bottom: 20px; z-index: 10;
+    padding: 13px 17px; background: var(--ink); color: white;
+    border-radius: 13px; box-shadow: var(--shadow);
+    opacity: 0; transform: translateY(15px); transition: .2s; pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  .footer-actions { display: flex; justify-content: flex-end; margin-top: 22px; }
+
+  @media (max-width: 1050px) {
+    .layout { grid-template-columns: 190px minmax(0,1fr); }
+    .side-panel { grid-column: 2; }
+  }
+  @media (max-width: 700px) {
+    .topbar { position: static; align-items: flex-start; flex-direction: column; }
+    .top-stats { width: 100%; }
+    .top-stat { flex: 1; min-width: 0; }
+    .layout { display: block; padding: 12px; }
+    .sidebar { margin-bottom: 12px; }
+    .sidebar nav { display: flex; overflow-x: auto; }
+    .nav-button { min-width: max-content; width: auto; }
+    .content { min-height: 500px; padding: 16px; margin-bottom: 12px; }
+    .side-panel { margin-bottom: 15px; }
+    .page-head h2 { font-size: 20px; }
+  }
 </style>
 </head>
 <body>
-<header>
+<header class="topbar">
   <div class="brand">
-    <div class="logo">◆</div>
-    <div><h1>Empire Boutique</h1><small>Gestion commerciale</small></div>
+    <div class="brand-icon">🛍️</div>
+    <div><h1>PopShop</h1><small>La boutique de tes rêves</small></div>
   </div>
-  <div class="stats">
-    <div class="stat"><label>BUDGET</label><strong id="money">500 €</strong></div>
-    <div class="stat"><label>BÉNÉFICES</label><strong id="profit">0 €</strong></div>
+  <div class="top-stats">
+    <div class="top-stat"><span>💰 Argent</span><strong id="money">500 €</strong></div>
+    <div class="top-stat profit"><span>📈 Résultat net</span><strong id="profit">0 €</strong></div>
   </div>
 </header>
 
-<main>
-  <aside>
+<main class="layout">
+  <aside class="panel sidebar">
     <nav>
-      <button class="active" data-page="market">🛒 Marché</button>
-      <button data-page="shop">🏪 Ma boutique</button>
-      <button data-page="upgrades">⚡ Améliorations</button>
+      <button class="nav-button active" data-page="market"><span class="nav-icon">🛒</span> Fournisseurs</button>
+      <button class="nav-button" data-page="shop"><span class="nav-icon">🏪</span> Ma boutique</button>
+      <button class="nav-button" data-page="employees"><span class="nav-icon">🧑‍💼</span> Employés</button>
+      <button class="nav-button" data-page="quests"><span class="nav-icon">🏆</span> Missions & quiz</button>
     </nav>
   </aside>
 
-  <section>
-    <div class="section-head">
-      <h2 id="title">Marché fournisseur</h2>
-      <div class="day-box" id="day">Jour 1</div>
+  <section class="panel content">
+    <div class="page-head">
+      <div>
+        <h2 id="page-title">Fournisseurs</h2>
+        <p class="subtitle" id="page-subtitle">Commande des articles pour remplir ton stock.</p>
+      </div>
+      <div class="day-pill" id="day">Jour 1</div>
     </div>
     <div id="market" class="grid"></div>
     <div id="shop" class="grid hidden"></div>
-    <div id="upgrades" class="grid hidden"></div>
+    <div id="employees" class="grid hidden"></div>
+    <div id="quests" class="hidden"></div>
   </section>
 
-  <aside class="right">
-    <h3>Activité</h3>
+  <aside class="side-panel">
+    <div class="quick-card">
+      <strong>✨ Ton objectif</strong>
+      <p>Achète des produits, vends-les plus cher et développe ton équipe pour faire grandir ta boutique !</p>
+    </div>
+    <h3>📣 Activité récente</h3>
     <div class="log" id="log"></div>
+    <p class="small-note">La partie est sauvegardée automatiquement sur cet appareil.</p>
+    <div class="footer-actions">
+      <button class="danger" id="reset">Nouvelle partie</button>
+    </div>
   </aside>
 </main>
 
 <div class="toast" id="toast"></div>
 
 <script>
-const products = [
-  {name:"Crayon premium", emoji:"✏️", cost:4, sell:7, tier:"Starter"},
-  {name:"Gourde", emoji:"🧴", cost:9, sell:15, tier:"Starter"},
-  {name:"T-shirt minimal", emoji:"👕", cost:18, sell:29, tier:"Starter"},
-  {name:"Casquette", emoji:"🧢", cost:25, sell:40, tier:"Équipement"},
-  {name:"Enceinte", emoji:"🔊", cost:45, sell:72, tier:"Électronique"},
-  {name:"Montre", emoji:"⌚", cost:85, sell:145, tier:"Électronique"},
-  {name:"Drone", emoji:"🚁", cost:180, sell:310, tier:"Tech"},
-  {name:"Ordinateur", emoji:"💻", cost:450, sell:720, tier:"Premium"},
-  {name:"Console", emoji:"🎮", cost:550, sell:840, tier:"Premium"},
-  {name:"Moto", emoji:"🏍️", cost:1800, sell:2400, tier:"Luxe"},
-  {name:"Voiture", emoji:"🚗", cost:6000, sell:7600, tier:"Collection"},
-  {name:"Yacht", emoji:"🛥️", cost:18000, sell:24000, tier:"Elite"}
-];
+(() => {
+  "use strict";
 
-let state = {
-  money: 500,
-  profit: 0,
-  day: 1,
-  reputation: 1,
-  stock: {},
-  upgrades: {pub:0, stock:0, qualification:0}
-};
+  const START_MONEY = 500;
+  const SAVE_KEY = "popshop_save_v1";
+  const products = [
+    {id:"stickers", name:"Pack de stickers", emoji:"🌈", category:"Petits trésors", cost:5, price:9},
+    {id:"pen", name:"Stylo pailleté", emoji:"🖊️", category:"Papeterie", cost:8, price:14},
+    {id:"mug", name:"Mug coloré", emoji:"☕", category:"Maison", cost:14, price:24},
+    {id:"plant", name:"Mini plante", emoji:"🪴", category:"Maison", cost:22, price:37},
+    {id:"tshirt", name:"T-shirt tendance", emoji:"👕", category:"Mode", cost:32, price:52},
+    {id:"bag", name:"Sac à dos", emoji:"🎒", category:"Mode", cost:55, price:88},
+    {id:"headphones", name:"Casque audio", emoji:"🎧", category:"Électronique", cost:95, price:149},
+    {id:"watch", name:"Montre connectée", emoji:"⌚", category:"Électronique", cost:165, price:249},
+    {id:"camera", name:"Appareil photo", emoji:"📸", category:"Tech premium", cost:290, price:425},
+    {id:"console", name:"Console de jeu", emoji:"🎮", category:"Tech premium", cost:480, price:690},
+    {id:"scooter", name:"Scooter électrique", emoji:"🛵", category:"Mobilité", cost:950, price:1320},
+    {id:"couch", name:"Canapé design", emoji:"🛋️", category:"Luxe", cost:1800, price:2450},
+    {id:"car", name:"Voiture de collection", emoji:"🏎️", category:"Prestige", cost:5000, price:6650},
+    {id:"yacht", name:"Mini yacht", emoji:"🛥️", category:"Prestige", cost:14000, price:18500}
+  ];
 
-products.forEach(p => state.stock[p.name] = 0);
+  const quizQuestions = [
+    {q:"Tu achètes un article 20 € et tu le revends 32 €. Quel est ton bénéfice brut ?", answers:["12 €","20 €","32 €"], correct:0},
+    {q:"Que vaut-il mieux faire avant de commander beaucoup de stock ?", answers:["Vérifier la demande","Dépenser tout son argent","Augmenter les prix au hasard"], correct:0},
+    {q:"Un client achète un produit à 50 € qui t'a coûté 35 €. Quelle est ta marge brute ?", answers:["15 €","35 €","85 €"], correct:0},
+    {q:"Ton stock est presque vide et les ventes marchent bien. Quelle action est la plus utile ?", answers:["Recommander des articles","Fermer la boutique","Jeter le stock restant"], correct:0},
+    {q:"Pourquoi garder une réserve d'argent ?", answers:["Pour pouvoir acheter du stock","Pour ne plus vendre","Pour faire baisser les prix"], correct:0}
+  ];
 
-const upgrades = [
-  {id:"pub", name:"Publicité", emoji:"📣", base:100, text:"+ ventes par jour"},
-  {id:"stock", name:"Entrepôt", emoji:"📦", base:250, text:"Bonus de livraison"},
-  {id:"qualification", name:"Étiquette qualité", emoji:"✨", base:500, text:"+ bénéfice des ventes"}
-];
-
-function euro(value) {
-  return Math.round(value).toLocaleString("fr-FR") + " €";
-}
-
-function save() {
-  localStorage.setItem("empireBoutique", JSON.stringify(state));
-}
-
-function load() {
-  const saved = JSON.parse(localStorage.getItem("empireBoutique"));
-  if(saved) state = {...state, ...saved};
-}
-
-function log(text) {
-  const el = document.getElementById("log");
-  const item = document.createElement("div");
-  item.className = "log-item";
-  item.textContent = text;
-  el.prepend(item);
-}
-
-function toast(text) {
-  const el = document.getElementById("toast");
-  el.textContent = text;
-  el.classList.add("show");
-  setTimeout(() => el.classList.remove("show"), 2200);
-}
-
-function render() {
-  document.getElementById("money").textContent = euro(state.money);
-  document.getElementById("profit").textContent = euro(state.profit);
-  document.getElementById("day").textContent = "Jour " + state.day;
-
-  const market = document.getElementById("market");
-  market.innerHTML = "";
-  products.forEach(p => {
-    if(p.cost > state.money + 300 && p.tier !== "Starter") return;
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <div class="emoji">${p.emoji}</div>
-      <span class="tier">${p.tier}</span>
-      <h3>${p.name}</h3>
-      <div class="price-row">
-        <span class="buy-price">Achat ${euro(p.cost)}</span>
-        <span class="sell-price">Vente ${euro(p.sell)}</span>
-      </div>
-      <button class="primary" ${state.money < p.cost ? "disabled" : ""}>Commander</button>
-    `;
-    card.querySelector("button").onclick = () => buy(p);
-    market.appendChild(card);
+  const defaultState = () => ({
+    money: START_MONEY,
+    day: 1,
+    stock: Object.fromEntries(products.map(p => [p.id, 0])),
+    employees: 0,
+    sales: 0,
+    revenue: 0,
+    spent: 0,
+    quest: {type:"sales", target:3, progress:0, reward:60, claimed:false},
+    quizDay: 0,
+    quizDone: false,
+    logs: []
   });
 
-  const shop = document.getElementById("shop");
-  shop.innerHTML = "";
-  const inventory = products.filter(p => state.stock[p.name] > 0);
-  if(inventory.length === 0) {
-    shop.innerHTML = `<div class="card"><h3>Votre boutique est vide</h3><p class="stock">Commandez des produits au marché.</p></div>`;
-  } else {
-    inventory.forEach(p => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <div class="emoji">${p.emoji}</div>
-        <span class="tier">${p.tier}</span>
-        <h3>${p.name}</h3>
-        <p class="stock">Stock : ${state.stock[p.name]}</p>
-        <button class="primary">Afficher en boutique</button>
-      `;
-      card.querySelector("button").onclick = () => sell(p);
-      shop.appendChild(card);
+  let state = defaultState();
+  let toastTimer;
+
+  function safeNumber(value, fallback=0) {
+    const n = Number(value);
+    return Number.isSafeInteger(n) && n >= 0 ? n : fallback;
+  }
+
+  function loadGame() {
+    try {
+      const raw = localStorage.getItem(SAVE_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw);
+      if (!saved || typeof saved !== "object") return;
+
+      state.money = safeNumber(saved.money, START_MONEY);
+      state.day = Math.max(1, safeNumber(saved.day, 1));
+      state.employees = Math.min(100, safeNumber(saved.employees, 0));
+      state.sales = safeNumber(saved.sales, 0);
+      state.revenue = safeNumber(saved.revenue, 0);
+      state.spent = safeNumber(saved.spent, 0);
+      state.stock = Object.fromEntries(products.map(p => [p.id, safeNumber(saved.stock?.[p.id], 0)]));
+      state.logs = Array.isArray(saved.logs) ? saved.logs.filter(x => typeof x === "string").slice(0, 30) : [];
+      if (saved.quest && ["sales","orders","revenue"].includes(saved.quest.type)) {
+        state.quest = {
+          type: saved.quest.type,
+          target: safeNumber(saved.quest.target, 3) || 3,
+          progress: safeNumber(saved.quest.progress, 0),
+          reward: safeNumber(saved.quest.reward, 60),
+          claimed: Boolean(saved.quest.claimed)
+        };
+      }
+      state.quizDay = safeNumber(saved.quizDay, 0);
+      state.quizDone = Boolean(saved.quizDone);
+    } catch (error) {
+      console.warn("Sauvegarde PopShop illisible :", error);
+    }
+  }
+
+  function saveGame() {
+    try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); }
+    catch (error) { console.warn("Impossible de sauvegarder :", error); }
+  }
+
+  function euro(amount) {
+    return Math.round(amount).toLocaleString("fr-FR") + " €";
+  }
+
+  function netResult() {
+    return state.money - START_MONEY;
+  }
+
+  function addLog(message, kind="info") {
+    state.logs.unshift(message);
+    state.logs = state.logs.slice(0, 30);
+    renderLog();
+    saveGame();
+  }
+
+  function showToast(message) {
+    const el = document.getElementById("toast");
+    el.textContent = message;
+    el.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove("show"), 2300);
+  }
+
+  function spend(amount) {
+    amount = Math.round(amount);
+    if (!Number.isSafeInteger(amount) || amount < 0 || state.money < amount) return false;
+    state.money -= amount;
+    state.spent += amount;
+    return true;
+  }
+
+  function earn(amount) {
+    amount = Math.round(amount);
+    if (!Number.isSafeInteger(amount) || amount <= 0) return false;
+    if (state.money + amount > Number.MAX_SAFE_INTEGER) return false;
+    state.money += amount;
+    return true;
+  }
+
+  function updateQuest(type, amount=1) {
+    if (state.quest.claimed) return;
+    if (state.quest.type === type) {
+      state.quest.progress = Math.min(state.quest.target, state.quest.progress + amount);
+    }
+  }
+
+  function buyProduct(product) {
+    if (!spend(product.cost)) {
+      showToast("Pas assez d'argent pour cette commande.");
+      return;
+    }
+    state.stock[product.id]++;
+    updateQuest("orders");
+    addLog(`📦 Commande reçue : ${product.name}.`);
+    showToast(`${product.name} ajouté au stock !`);
+    render();
+  }
+
+  function sellProduct(product, byEmployee=false) {
+    if (state.stock[product.id] <= 0) return false;
+    const salePrice = product.price;
+    if (!earn(salePrice)) {
+      showToast("Le solde a atteint sa limite.");
+      return false;
+    }
+    state.stock[product.id]--;
+    state.sales++;
+    state.revenue += salePrice;
+    updateQuest("sales");
+    updateQuest("revenue", salePrice);
+    addLog(`${byEmployee ? "🧑‍💼" : "🛍️"} ${product.name} vendu : +${euro(salePrice)}.`);
+    return true;
+  }
+
+  function employeeCost() {
+    return Math.round(120 * Math.pow(1.65, state.employees));
+  }
+
+  function hireEmployee() {
+    const cost = employeeCost();
+    if (state.employees >= 100) {
+      showToast("Ton équipe est déjà au maximum !");
+      return;
+    }
+    if (!spend(cost)) {
+      showToast("Pas assez d'argent pour embaucher.");
+      return;
+    }
+    state.employees++;
+    addLog(`🎉 Nouvel employé embauché pour ${euro(cost)} !`);
+    showToast("Bienvenue dans l'équipe !");
+    render();
+  }
+
+  function makeDailyQuest() {
+    const choices = [
+      {type:"sales", target:3, reward:70, title:"Ventes du jour", text:"Vends 3 articles."},
+      {type:"orders", target:4, reward:85, title:"Réassort malin", text:"Commande 4 articles."},
+      {type:"revenue", target:150, reward:100, title:"Belle journée", text:"Génère 150 € de ventes."}
+    ];
+    const q = choices[(state.day - 1) % choices.length];
+    state.quest = {...q, progress:0, claimed:false};
+  }
+
+  function claimQuest() {
+    const q = state.quest;
+    if (q.claimed || q.progress < q.target) return;
+    q.claimed = true;
+    earn(q.reward);
+    addLog(`🏆 Mission terminée : récompense de ${euro(q.reward)}.`);
+    showToast(`Mission réussie : +${euro(q.reward)} !`);
+    render();
+  }
+
+  function answerQuiz(index) {
+    if (state.quizDone) return;
+    state.quizDone = true;
+    const questionIndex = (state.day - 1) % quizQuestions.length;
+    const question = quizQuestions[questionIndex];
+    const feedback = document.getElementById("quiz-feedback");
+    document.querySelectorAll(".answer").forEach(button => button.disabled = true);
+    if (index === question.correct) {
+      earn(40);
+      feedback.textContent = "✅ Bonne réponse ! Tu gagnes 40 €.";
+      feedback.style.color = "var(--green)";
+      addLog("🧠 Bonne réponse au quiz : +40 €.");
+    } else {
+      feedback.textContent = `Pas tout à fait ! La bonne réponse était : ${question.answers[question.correct]}.`;
+      feedback.style.color = "var(--red)";
+      addLog("🧠 Quiz du jour terminé.");
+    }
+    saveGame();
+    renderHeader();
+  }
+
+  function renderHeader() {
+    document.getElementById("money").textContent = euro(state.money);
+    const result = netResult();
+    const profitEl = document.getElementById("profit");
+    profitEl.textContent = (result > 0 ? "+" : "") + euro(result);
+    profitEl.style.color = result < 0 ? "var(--red)" : "var(--purple)";
+    document.getElementById("day").textContent = "Jour " + state.day;
+  }
+
+  function renderLog() {
+    const log = document.getElementById("log");
+    log.innerHTML = "";
+    if (!state.logs.length) {
+      log.innerHTML = '<div class="log-entry info">Bienvenue ! Ta boutique ouvre ses portes.</div>';
+      return;
+    }
+    state.logs.forEach(message => {
+      const item = document.createElement("div");
+      item.className = "log-entry info";
+      item.textContent = message;
+      log.appendChild(item);
     });
   }
 
-  const upgradeGrid = document.getElementById("upgrades");
-  upgradeGrid.innerHTML = "";
-  upgrades.forEach(u => {
-    const level = state.upgrades[u.id];
-    const cost = u.base * (level + 1);
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <div class="emoji">${u.emoji}</div>
-      <span class="tier">Niveau ${level}</span>
-      <h3>${u.name}</h3>
-      <p class="stock">${u.text}</p>
-      <p class="stock">Coût : ${euro(cost)}</p>
-      <button class="primary" ${state.money < cost ? "disabled" : ""}>Améliorer</button>
-    `;
-    card.querySelector("button").onclick = () => purchaseUpgrade(u, cost);
-    upgradeGrid.appendChild(card);
-  });
-  save();
-}
+  function renderMarket() {
+    const container = document.getElementById("market");
+    container.innerHTML = "";
+    products.forEach(product => {
+      const card = document.createElement("article");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="item-art">${product.emoji}</div>
+        <span class="tag">${product.category}</span>
+        <h3>${product.name}</h3>
+        <div class="description">En stock : ${state.stock[product.id]}</div>
+        <div class="price-line"><span class="cost">Achat ${euro(product.cost)}</span><span class="sell-price">Vente ${euro(product.price)}</span></div>
+        <button class="primary" ${state.money < product.cost ? "disabled" : ""}>Commander</button>`;
+      card.querySelector("button").addEventListener("click", () => buyProduct(product));
+      container.appendChild(card);
+    });
+  }
 
-function buy(p) {
-  if(state.money < p.cost) return;
-  state.money -= p.cost;
-  state.stock[p.name]++;
-  log(`Commande reçue : ${p.name}`);
-  toast(`${p.name} ajouté au stock`);
-  render();
-}
-
-function sell(p) {
-  if(state.stock[p.name] <= 0) return;
-  const quality = 1 + state.upgrades.qualification * .12;
-  const randomDemand = .85 + Math.random() * .3;
-  const sale = Math.round(p.sell * randomDemand * quality);
-  state.stock[p.name]--;
-  state.money += sale;
-  state.profit += sale - p.cost;
-  log(`${p.name} vendu pour ${euro(sale)}`);
-  toast(`Vente réussie : +${euro(sale)}`);
-  render();
-}
-
-function purchaseUpgrade(u, cost) {
-  if(state.money < cost) return;
-  state.money -= cost;
-  state.upgrades[u.id]++;
-  state.reputation++;
-  log(`${u.name} amélioré`);
-  toast("Amélioration achetée");
-  render();
-}
-
-document.querySelectorAll("nav button").forEach(button => {
-  button.onclick = () => {
-    document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
-    button.classList.add("active");
-    ["market","shop","upgrades"].forEach(id => document.getElementById(id).classList.add("hidden"));
-    const page = button.dataset.page;
-    document.getElementById(page).classList.remove("hidden");
-    document.getElementById("title").textContent =
-      page === "market" ? "Marché fournisseur" :
-      page === "shop" ? "Stock de ma boutique" : "Améliorations";
-  };
-});
-
-setInterval(() => {
-  state.day++;
-  let sold = 0;
-
-  products.forEach(p => {
-    if(state.stock[p.name] > 0) {
-      const chance = .08 + state.upgrades.pub * .07;
-      if(Math.random() < chance) {
-        state.stock[p.name]--;
-        const quality = 1 + state.upgrades.qualification * .12;
-        const sale = Math.round(p.sell * quality);
-        state.money += sale;
-        state.profit += sale - p.cost;
-        sold++;
-        log(`Vente automatique : ${p.name} — ${euro(sale)}`);
-      }
+  function renderShop() {
+    const container = document.getElementById("shop");
+    container.innerHTML = "";
+    const available = products.filter(p => state.stock[p.id] > 0);
+    if (!available.length) {
+      container.innerHTML = '<div class="empty"><div style="font-size:42px">🛍️</div><h3>Ta boutique attend ses premiers articles !</h3><p>Va chez les fournisseurs pour commander du stock.</p></div>';
+      return;
     }
+    available.forEach(product => {
+      const card = document.createElement("article");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="item-art">${product.emoji}</div>
+        <span class="tag">${product.category}</span>
+        <h3>${product.name}</h3>
+        <p class="stock-info">📦 Stock disponible : <strong>${state.stock[product.id]}</strong></p>
+        <div class="price-line"><span class="sell-price">Prix de vente</span><span class="sell-price">${euro(product.price)}</span></div>
+        <button class="primary">Vendre un article</button>`;
+      card.querySelector("button").addEventListener("click", () => {
+        if (sellProduct(product)) {
+          showToast(`Vente réussie : +${euro(product.price)} !`);
+          render();
+        }
+      });
+      container.appendChild(card);
+    });
+  }
+
+  function renderEmployees() {
+    const container = document.getElementById("employees");
+    const cost = employeeCost();
+    const capacity = state.employees;
+    container.innerHTML = `
+      <div class="employee-banner" style="grid-column:1/-1">
+        <strong>👥 Ton équipe : ${capacity} employé${capacity > 1 ? "s" : ""}</strong><br>
+        Chaque employé vend automatiquement un article de ton stock environ toutes les 8 secondes.
+      </div>
+      <div class="card">
+        <div class="item-art">🧑‍💼</div>
+        <span class="tag">Recrutement</span>
+        <h3>Embaucher un employé</h3>
+        <p class="description">Plus ton équipe grandit, plus le prochain recrutement coûte cher.</p>
+        <div class="price-line"><span>Prochain salaire d'embauche</span><span class="cost">${euro(cost)}</span></div>
+        <button class="primary" ${state.money < cost || state.employees >= 100 ? "disabled" : ""}>Embaucher</button>
+      </div>
+      <div class="card">
+        <div class="item-art">🤖</div>
+        <span class="tag">Automatisation</span>
+        <h3>Ventes automatiques</h3>
+        <p class="description">Tes employés choisissent parmi les produits disponibles et encaissent leur prix de vente.</p>
+        <p class="stock-info">Astuce : garde toujours du stock pour qu'ils puissent travailler !</p>
+      </div>`;
+    container.querySelector("button").addEventListener("click", hireEmployee);
+  }
+
+  function renderQuests() {
+    const container = document.getElementById("quests");
+    const q = state.quest;
+    const progress = Math.min(q.progress, q.target);
+    const percent = Math.min(100, Math.round(progress / q.target * 100));
+    const questName = q.type === "sales" ? "Ventes du jour" : q.type === "orders" ? "Réassort malin" : "Belle journée";
+    const questText = q.type === "sales" ? `Vends ${q.target} articles.` : q.type === "orders" ? `Commande ${q.target} articles.` : `Génère ${q.target} € de ventes.`;
+    const question = quizQuestions[(state.day - 1) % quizQuestions.length];
+    const alreadyAnswered = state.quizDone && state.quizDay === state.day;
+
+    container.innerHTML = `
+      <div class="quest-card">
+        <span class="tag">🏆 Mission du jour</span>
+        <h3>${questName}</h3>
+        <p>${questText}</p>
+        <div class="progress"><div style="width:${percent}%"></div></div>
+        <p><strong>${progress} / ${q.target}</strong> · Récompense : <strong>${euro(q.reward)}</strong></p>
+        <button id="claim-quest" class="primary" ${q.claimed || progress < q.target ? "disabled" : ""}>
+          ${q.claimed ? "Récompense récupérée ✓" : "Récupérer ma récompense"}
+        </button>
+      </div>
+      <div class="quiz">
+        <span class="tag">🧠 Question du jour · +40 €</span>
+        <h3>Le petit quiz du commerçant</h3>
+        <p>${question.q}</p>
+        <div class="answer-list">
+          ${question.answers.map((answer, index) => `<button class="answer" data-answer="${index}" ${alreadyAnswered ? "disabled" : ""}>${answer}</button>`).join("")}
+        </div>
+        <div class="feedback" id="quiz-feedback">${alreadyAnswered ? "Tu as déjà répondu au quiz aujourd'hui." : ""}</div>
+      </div>`;
+    document.getElementById("claim-quest").addEventListener("click", claimQuest);
+    container.querySelectorAll(".answer").forEach(button => {
+      button.addEventListener("click", () => answerQuiz(Number(button.dataset.answer)));
+    });
+  }
+
+  function render() {
+    renderHeader();
+    renderMarket();
+    renderShop();
+    renderEmployees();
+    renderQuests();
+    renderLog();
+    saveGame();
+  }
+
+  const pages = {
+    market: ["Fournisseurs", "Commande des articles pour remplir ton stock."],
+    shop: ["Ma boutique", "Vends tes articles et surveille ton stock."],
+    employees: ["Mon équipe", "Embauche des employés pour vendre automatiquement."],
+    quests: ["Missions & quiz", "Accomplis la mission du jour et réponds à la question."]
+  };
+
+  document.querySelectorAll(".nav-button").forEach(button => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll(".nav-button").forEach(b => b.classList.remove("active"));
+      button.classList.add("active");
+      const page = button.dataset.page;
+      ["market","shop","employees","quests"].forEach(id => {
+        document.getElementById(id).classList.toggle("hidden", id !== page);
+      });
+      document.getElementById("page-title").textContent = pages[page][0];
+      document.getElementById("page-subtitle").textContent = pages[page][1];
+    });
   });
 
-  if(sold) toast(`${sold} vente(s) automatique(s)`);
-  render();
-}, 15000);
+  document.getElementById("reset").addEventListener("click", () => {
+    if (!confirm("Recommencer la partie ? Toute la progression actuelle sera effacée.")) return;
+    localStorage.removeItem(SAVE_KEY);
+    state = defaultState();
+    addLog("🌟 Nouvelle partie : tu commences avec 500 € !");
+    render();
+    showToast("Nouvelle partie lancée !");
+  });
 
-load();
-render();
-log("Bienvenue dans Empire Boutique !");
+  loadGame();
+
+  // Un employé vend au maximum un article par cycle : aucun stock ne peut devenir négatif.
+  setInterval(() => {
+    if (state.employees < 1) return;
+    const stocked = products.filter(p => state.stock[p.id] > 0);
+    if (!stocked.length) return;
+    const product = stocked[Math.floor(Math.random() * stocked.length)];
+    if (sellProduct(product, true)) render();
+  }, 8000);
+
+  // Un jour de jeu dure 60 secondes. La mission et le quiz sont renouvelés chaque jour.
+  setInterval(() => {
+    state.day++;
+    state.quizDone = false;
+    state.quizDay = state.day;
+    makeDailyQuest();
+    addLog(`☀️ Jour ${state.day} : nouvelle mission et nouveau quiz !`);
+    render();
+    showToast(`Jour ${state.day} : nouveaux défis disponibles !`);
+  }, 60000);
+
+  if (!state.quest || !state.quest.type) makeDailyQuest();
+  if (state.quizDay !== state.day) {
+    state.quizDone = false;
+    state.quizDay = state.day;
+  }
+  render();
+})();
 </script>
 </body>
 </html>
