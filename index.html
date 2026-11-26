@@ -178,3 +178,859 @@
     .side-panel { margin-bottom: 15px; }
     .page-head h2 { font-size: 20px; }
   }
+
+  /* POPSHOP DARK UI UPGRADE */
+  :root { --ink:#e7eaf7; --muted:#a0a8c4; --purple:#9878ff; --pink:#ff72bd; --cyan:#59d7f3; --yellow:#ffd36a; --green:#54e0a6; --red:#ff718b; --paper:#171a27; --bg:#0b0d15; --line:#292d40; --shadow:0 15px 42px rgba(0,0,0,.34); }
+  body { background:radial-gradient(ellipse at 12% 0%,#24152e 0,transparent 32%),radial-gradient(ellipse at 90% 0%,#102532 0,transparent 35%),#0b0d15; color:var(--ink); }
+  .topbar { background:rgba(15,17,27,.92); border-color:#292d40; }
+  .brand-icon { background:linear-gradient(135deg,#ff58ae,#7358ff); box-shadow:0 8px 24px #9b62ff30; }
+  .top-stat,.panel,.side-panel { background:#151824; border-color:#292d40; }
+  .top-stat strong { color:var(--green); }
+  .nav-button { color:#a0a8c4; }
+  .nav-button:hover { background:#222438; color:#c8baff; }
+  .nav-button.active { background:linear-gradient(100deg,#6f52e9,#a26cff); }
+  .card { background:linear-gradient(145deg,#1a1e2c,#151824); border-color:#2c3146; }
+  .card:hover { border-color:#7660cc; box-shadow:0 14px 28px #0004; }
+  .item-art { background:linear-gradient(135deg,#252034,#182633); }
+  .tag { background:#28243b; color:#c1aaff; }
+  .description,.stock-info,.subtitle,.small-note { color:#a0a8c4; }
+  .secondary { color:#8be5ff; background:#162d3a; }
+  .secondary:hover { background:#1d3b4b; }
+  .danger { color:#ff9aaf; background:#39212c; }
+  .quick-card { background:linear-gradient(135deg,#252039,#192b38); }
+  .quick-card p { color:#a0a8c4; }
+  .log-entry { background:#1d2231; color:#aab3ce; }
+  .quest-card { background:linear-gradient(135deg,#30261d,#291d2a); border-color:#4a382d; }
+  .quiz { background:linear-gradient(135deg,#192a34,#242039); border-color:#2d3c4c; }
+  .answer { background:#1b2030; border-color:#30364c; color:#e7eaf7; }
+  .answer:hover:not(:disabled) { background:#26253b; }
+  .progress { background:#303347; }
+  .index-summary { background:#222238; border:1px solid #32324c; color:#d8d2ff; }
+  .empty { border-color:#34384e; color:#a0a8c4; }
+  .day-pill { background:#352d1b; color:#ffd36a; }
+  .roll-wrap { position:relative; overflow:hidden; background:radial-gradient(circle at 50% -20%,#5541a4 0,#292047 45%,#171a27 100%); border:1px solid #4a3a76; box-shadow:0 15px 38px #0005; }
+  .roll-wrap:before { content:""; position:absolute; inset:-50% -30%; background:linear-gradient(110deg,transparent 40%,#ffffff0a 50%,transparent 60%); transform:rotate(12deg); pointer-events:none; }
+  .roll-display { position:relative; width:min(100%,420px); min-height:190px; background:linear-gradient(145deg,#171a27aa,#26233daa); border:1px solid #7e69c766; box-shadow:inset 0 0 30px #7c5cff16; transition:transform .25s,box-shadow .25s; }
+  .roll-display .roll-emoji { font-size:76px; line-height:1; filter:drop-shadow(0 8px 10px #0006); }
+  .roll-display .roll-caption { font-size:15px; margin-top:12px; color:#d4c9ff; font-weight:800; }
+  .roll-wrap .primary { background:linear-gradient(100deg,#b35dff,#ff65bb); color:white; box-shadow:0 8px 22px #a15cff3b; }
+  .roll-wrap .primary:disabled { opacity:.5; }
+  .roll-display.spinning { animation:rollShake .11s linear infinite; border-color:#a890ff; box-shadow:0 0 30px #9770ff66,inset 0 0 25px #9770ff20; }
+  .roll-display.reveal { animation:resultPop .55s cubic-bezier(.2,1.6,.4,1) both; }
+  .roll-display.good-result { box-shadow:0 0 30px var(--rarity-glow,#a890ff),inset 0 0 40px var(--rarity-glow,#a890ff)33; border-color:var(--rarity-glow,#a890ff); }
+  .roll-display.high-result { animation:resultPop .65s cubic-bezier(.2,1.7,.4,1) both, rarePulse 1.4s ease-in-out 2; }
+  @keyframes rollShake { 0%{transform:translateX(-3px) rotate(-1deg) scale(1.01)} 50%{transform:translateX(3px) rotate(1deg) scale(1.04)} 100%{transform:translateX(0) rotate(0) scale(1.02)} }
+  @keyframes resultPop { 0%{transform:scale(.72) rotate(-8deg);opacity:.2} 65%{transform:scale(1.12) rotate(3deg);opacity:1} 100%{transform:scale(1) rotate(0)} }
+  @keyframes rarePulse { 0%,100%{filter:brightness(1)} 50%{filter:brightness(1.55)} }
+  .roll-rarity-note { color:#c6bbff; font-size:13px; margin-top:10px; }
+  .employee-card { transition:transform .2s,box-shadow .2s; }
+  .employee-card:hover { transform:translateY(-4px); }
+  .rarity-common { border-color:#586177 !important; } .rarity-uncommon { border-color:#3e9b71 !important; } .rarity-rare { border-color:#3583b5 !important; } .rarity-epic { border-color:#8055b8 !important; } .rarity-legendary { border-color:#b77b37 !important; } .rarity-mythic { border-color:#b34f87 !important; } .rarity-secret { border-color:#777 !important; box-shadow:0 0 16px #ffffff12; }
+  .toast { background:#25283a; color:#f1f2fb; border:1px solid #393e56; }
+
+  /* Darker polished UI + employee store slots */
+  .team-summary { margin-bottom: 6px; grid-column:1/-1; }
+  .team-slot { min-height:290px; display:flex; flex-direction:column; }
+  .slot-number { color:#a7a0ce; font-size:11px; font-weight:900; letter-spacing:1.6px; }
+  .employee-select { width:100%; padding:11px; border-radius:12px; margin-top:auto; color:#e8e8fa; background:#191d2c; border:1px solid #373d57; }
+  .sell-employee { margin-top:auto; width:100%; }
+  .team-slot .item-art { background:radial-gradient(circle,#2c2644,#191d2b); }
+  .empty-slot { border-style:dashed; border-color:#414761; }
+  .empty-slot .item-art { color:#9a91b9; background:#202435; }
+  .card, .panel, .side-panel { backdrop-filter:blur(5px); }
+  .nav-button { letter-spacing:.15px; }
+  .nav-button.active { box-shadow:0 6px 20px #865cff3a, inset 0 0 0 1px #ffffff12; }
+  .top-stat { background:#171b29; border-color:#2b3044; }
+  .brand-icon { box-shadow:0 0 25px #9b6bff55; }
+  .primary, .secondary, .danger { letter-spacing:.15px; }
+  .primary { background:linear-gradient(110deg,#7954ee,#a16cff); }
+  .primary:not(:disabled):hover { box-shadow:0 0 22px #916bff44; }
+  .index-summary { background:linear-gradient(130deg,#222238,#1c2634); }
+  .quest-card, .quiz { box-shadow:0 10px 24px #0002; }
+  .answer { transition:background .15s,border-color .15s,transform .15s; }
+  .answer:hover:not(:disabled) { transform:translateX(3px); }
+  .roll-wrap { border-radius:24px; padding:25px; }
+  .roll-display.spinning { background:radial-gradient(circle at center,var(--rarity-glow,#8c65ff)22%,#171a27 70%); animation:rollShake .09s linear infinite, rollColorCycle 1.1s linear infinite; }
+  .roll-flash { animation:emojiFlash .16s ease-in-out infinite alternate; }
+  .roll-display.reveal { overflow:hidden; }
+  .roll-display.high-result::after { content:""; position:absolute; inset:-45%; pointer-events:none; background:conic-gradient(from 0deg,transparent,#ffffff25,transparent,#ffffff18,transparent); animation:spinGlow 2.2s linear infinite; }
+  .rarity-common { --rarity-glow:#a8b3c8; } .rarity-uncommon { --rarity-glow:#43df98; } .rarity-rare { --rarity-glow:#54c8ff; } .rarity-epic { --rarity-glow:#bd77ff; } .rarity-legendary { --rarity-glow:#ffd166; } .rarity-mythic { --rarity-glow:#ff66ca; } .rarity-secret { --rarity-glow:#f8fbff; }
+  .rarity-label { border-color:var(--rarity-glow,#8d91aa); color:var(--rarity-glow,#aeb5ce); background:color-mix(in srgb,var(--rarity-glow,#8d91aa) 12%,transparent); }
+  @keyframes rollColorCycle { 0%{filter:hue-rotate(0deg)} 100%{filter:hue-rotate(360deg)} }
+  @keyframes emojiFlash { from{transform:scale(.92) rotate(-5deg);filter:drop-shadow(0 0 8px var(--rarity-glow,#a890ff))} to{transform:scale(1.08) rotate(5deg);filter:drop-shadow(0 0 22px var(--rarity-glow,#a890ff))} }
+  @keyframes spinGlow { to{transform:rotate(360deg)} }
+  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; } }
+
+
+  /* Darker overall theme polish */
+  :root { --ink:#e8e9f7; --muted:#a4abc8; --paper:#171b29; --bg:#0d1018; --line:#2a3044; --shadow:0 14px 40px rgba(0,0,0,.35); }
+  body { color:var(--ink); background:radial-gradient(ellipse at 8% 0%,#24162c 0,transparent 35%),radial-gradient(ellipse at 92% 8%,#142637 0,transparent 33%),#0d1018; }
+  .topbar,.panel,.side-panel { background:#141925eF; border-color:#293047; }
+  .card { background:linear-gradient(145deg,#1a2030,#141925); border-color:#2c344b; }
+  .item-art { background:linear-gradient(135deg,#24213a,#182635); }
+  .description,.subtitle,.stock-info { color:#a4abc8; }
+  .nav-button { color:#a4abc8; }
+  .nav-button:hover { background:#22253a; color:#c8b8ff; }
+  .top-stat { background:#171b29; border-color:#2b3044; }
+  .quick-card { background:linear-gradient(135deg,#24213a,#1b2735); }
+  .log-entry { background:#1b2030; color:#aab3d0; }
+  .empty { border-color:#343b52; color:#a4abc8; }
+  .answer { background:#1a2030; color:#e8e9f7; border-color:#343b52; }
+  .employee-select { color:#e8e8fa; background:#191d2c; border-color:#373d57; }
+  .dark-overlay { position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:20px; background:#05060a; color:#f5f4ff; }
+  .onboard-box { width:min(100%,480px); padding:30px; border:1px solid #39334e; border-radius:22px; background:linear-gradient(145deg,#171925,#10131c); box-shadow:0 25px 70px #0009; text-align:center; }
+  .onboard-box h1 { margin:0 0 10px; font-size:32px; }
+  .onboard-box p { color:#aeb5d2; line-height:1.6; }
+  .onboard-box input { width:100%; margin:15px 0; padding:13px 15px; border-radius:12px; background:#0d111b; border:1px solid #3b425a; color:white; font:inherit; }
+  .onboard-box .primary { margin-top:6px; }
+  .save-button { width:100%; margin-top:10px; }
+  .skill-note { color:#aab3d0; font-size:12px; }
+  .topbar small#player-tag { color:#bdaaff; font-weight:800; }
+  .top-controls { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+  .header-control { padding:10px 13px; border:1px solid #343b54; border-radius:12px; background:#1a2030; color:#e8e9f7; font-weight:800; cursor:pointer; transition:.2s; }
+  .header-control:hover { border-color:#9877ff; background:#25223b; transform:translateY(-1px); }
+  .onboard-box { position:relative; overflow:hidden; width:min(100%,540px); padding:clamp(22px,5vw,38px); border:1px solid #58477b; border-radius:26px; background:radial-gradient(circle at 50% 0%,#39265d 0,transparent 43%),linear-gradient(145deg,#171925,#0d111a); box-shadow:0 28px 90px #000b,0 0 35px #8d5cff18; }
+  .onboard-box:before { content:''; position:absolute; width:230px;height:230px;border-radius:50%;background:#9b67ff10;filter:blur(8px);top:-100px;right:-80px;pointer-events:none; }
+  .onboard-box .onboard-kicker { display:inline-block; margin:4px 0 14px; padding:6px 10px; border-radius:99px; border:1px solid #66509a; background:#35264f; color:#c9b4ff; font-size:11px; font-weight:900; letter-spacing:1.4px; }
+  .onboard-box h1 { font-size:clamp(27px,5vw,38px); letter-spacing:-.5px; }
+  .onboard-box p { color:#b7bfd8; font-size:14px; line-height:1.7; }
+  .onboard-box input { transition:.2s; text-align:center; font-size:16px; }
+  .onboard-box input:focus { outline:none; border-color:#a27bff; box-shadow:0 0 0 3px #8d5cff20; }
+  .onboard-box .primary { padding:13px 18px; border-radius:13px; background:linear-gradient(100deg,#8b5cff,#e36bb9); box-shadow:0 10px 26px #8b5cff30; }
+  .onboard-features { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; margin:17px 0; text-align:left; }
+  .onboard-feature { padding:11px; border-radius:12px; border:1px solid #30364c; background:#131925; color:#d7dcf1; font-size:12px; }
+  @media(max-width:850px){.topbar{flex-wrap:wrap}.top-controls{order:3;width:100%}}
+
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-icon">🛍️</div>
+    <div><h1>PopShop</h1><small>La boutique de tes rêves</small><small id="player-tag"></small></div>
+  </div>
+  <div class="top-controls">
+    <button class="header-control" id="music-toggle" title="Musique">♫ Musique : OFF</button>
+    <button class="header-control" id="fullscreen-toggle" title="Plein écran">⛶ Plein écran</button>
+  </div>
+  <div class="top-stats">
+    <div class="top-stat"><span>🔥 Win streak</span><strong id="streak-display">0 jours</strong></div>
+    <div class="top-stat"><span>💰 Argent</span><strong id="money">500 €</strong></div>
+    <div class="top-stat profit"><span>📈 Résultat net</span><strong id="profit">0 €</strong></div>
+  </div>
+</header>
+
+<main class="layout">
+  <aside class="panel sidebar">
+    <nav>
+      <button class="nav-button active" data-page="market"><span class="nav-icon">🛒</span> Fournisseurs</button>
+      <button class="nav-button" data-page="shop"><span class="nav-icon">🏪</span> Ma boutique</button>
+      <button class="nav-button" data-page="roll"><span class="nav-icon">🎲</span> Roll employés</button>
+      <button class="nav-button" data-page="team"><span class="nav-icon">👥</span> Mon magasin (5)</button>
+      <button class="nav-button" data-page="index"><span class="nav-icon">📚</span> Index</button>
+      <button class="nav-button" data-page="quests"><span class="nav-icon">🏆</span> Missions & quiz</button>
+    </nav>
+  </aside>
+
+  <section class="panel content">
+    <div class="page-head">
+      <div>
+        <h2 id="page-title">Fournisseurs</h2>
+        <p class="subtitle" id="page-subtitle">Commande des articles pour remplir ton stock.</p>
+      </div>
+      <div class="day-pill" id="day">Jour 1</div>
+    </div>
+    <div id="market" class="grid"></div>
+    <div id="shop" class="grid hidden"></div>
+    <div id="roll" class="grid hidden"></div>
+    <div id="team" class="grid hidden"></div>
+    <div id="index" class="grid hidden"></div>
+    <div id="quests" class="hidden"></div>
+  </section>
+
+  <aside class="side-panel">
+    <div class="quick-card">
+      <strong>✨ Ton objectif</strong>
+      <p>Achète des produits, vends-les plus cher et développe ton équipe pour faire grandir ta boutique !</p>
+    </div>
+    <h3>📣 Activité récente</h3>
+    <div class="log" id="log"></div>
+    <p class="small-note">La partie est sauvegardée automatiquement sur cet appareil.</p>
+    <div class="footer-actions">
+      <button class="secondary save-button" id="save-button">💾 Sauvegarder</button><button class="danger" id="reset">Nouvelle partie</button>
+    </div>
+  </aside>
+</main>
+
+<div class="toast" id="toast"></div>
+<div class="dark-overlay hidden" id="pseudo-screen"><div class="onboard-box"><div style="font-size:58px;filter:drop-shadow(0 8px 18px #9b67ff55)">🛍️</div><span class="onboard-kicker">SIMULATEUR DE BOUTIQUE</span><h1>Bienvenue sur <span style="color:#b99aff">PopShop</span></h1><p>Choisis ton nom de commerçant et prépare-toi à construire la boutique la plus incroyable.</p><input id="pseudo-input" maxlength="18" placeholder="Entre ton pseudo ici..." autocomplete="nickname"><button class="primary" id="pseudo-confirm">✨ Créer mon profil</button><p style="font-size:11px;margin-top:14px">Ton pseudo est sauvegardé sur cet appareil.</p></div></div>
+<div class="dark-overlay hidden" id="intro-screen"><div class="onboard-box"><span class="onboard-kicker">COMMENT JOUER</span><h1>Bienvenue dans <span style="color:#b99aff">PopShop</span> !</h1><p>Fais grandir ta boutique en achetant des produits chez les fournisseurs puis en les revendant pour gagner des bénéfices. Roll gratuitement pour collectionner des employés, équipe ta boutique avec 5 employés maximum et profite de leurs bonus. Complète ton Index et fais fortune, tout en gardant ton budget sous contrôle !</p><div class="onboard-features"><div class="onboard-feature">🛒 <strong>Acheter & vendre</strong><br>Fais tes stocks et gagne de l'argent.</div><div class="onboard-feature">🎲 <strong>Roll gratuit</strong><br>Collectionne des employés rares.</div><div class="onboard-feature">👥 <strong>Équipe de 5</strong><br>Active leurs bonus de vente.</div><div class="onboard-feature">📚 <strong>Complète l'Index</strong><br>Découvre toute la collection.</div></div><p>💾 Progression sauvegardée sur cet appareil.</p><div style="margin-top:18px;font-size:12px;letter-spacing:1px;color:#b9afff;font-weight:800">Developed by Evan and The Artist Studio</div><button class="primary" id="intro-start">🚀 Entrer dans la boutique</button></div></div>
+
+<script>
+(() => {
+  "use strict";
+
+  const START_MONEY = 500;
+  let SAVE_KEY = "popshop_save_v1";
+  function profileKey(name){ return "popshop_save_v1_profile_" + String(name||"").trim().toLowerCase().replace(/[^a-z0-9_-]/g,"_"); }
+  const products = [
+    {id:"stickers", name:"Pack de stickers", emoji:"🌈", category:"Petits trésors", cost:5, price:9},
+    {id:"pen", name:"Stylo pailleté", emoji:"🖊️", category:"Papeterie", cost:8, price:14},
+    {id:"mug", name:"Mug coloré", emoji:"☕", category:"Maison", cost:14, price:24},
+    {id:"plant", name:"Mini plante", emoji:"🪴", category:"Maison", cost:22, price:37},
+    {id:"tshirt", name:"T-shirt tendance", emoji:"👕", category:"Mode", cost:32, price:52},
+    {id:"bag", name:"Sac à dos", emoji:"🎒", category:"Mode", cost:55, price:88},
+    {id:"headphones", name:"Casque audio", emoji:"🎧", category:"Électronique", cost:95, price:149},
+    {id:"watch", name:"Montre connectée", emoji:"⌚", category:"Électronique", cost:165, price:249},
+    {id:"camera", name:"Appareil photo", emoji:"📸", category:"Tech premium", cost:290, price:425},
+    {id:"console", name:"Console de jeu", emoji:"🎮", category:"Tech premium", cost:480, price:690},
+    {id:"scooter", name:"Scooter électrique", emoji:"🛵", category:"Mobilité", cost:950, price:1320},
+    {id:"couch", name:"Canapé design", emoji:"🛋️", category:"Luxe", cost:1800, price:2450},
+    {id:"car", name:"Voiture de collection", emoji:"🏎️", category:"Prestige", cost:5000, price:6650},
+    {id:"yacht", name:"Mini yacht", emoji:"🛥️", category:"Prestige", cost:14000, price:18500},
+    {id:"bracelet", name:"Bracelet étoilé", emoji:"📿", category:"Accessoires", cost:12, price:21},
+    {id:"lamp", name:"Lampe design", emoji:"💡", category:"Maison", cost:38, price:64},
+    {id:"keyboard", name:"Clavier mécanique", emoji:"⌨️", category:"Électronique", cost:120, price:195},
+    {id:"sneakers", name:"Sneakers collector", emoji:"👟", category:"Mode premium", cost:210, price:340},
+    {id:"drone", name:"Drone compact", emoji:"🚁", category:"Tech premium", cost:620, price:890},
+    {id:"diamond", name:"Diamant décoratif", emoji:"💠", category:"Luxe", cost:2400, price:3300},
+    {id:"motorbike", name:"Moto sportive", emoji:"🏍️", category:"Prestige", cost:7200, price:9600},
+    {id:"keychain", name:"Porte-clés premium", emoji:"🔑", category:"Accessoires", cost:18, price:30},
+    {id:"hoodie", name:"Hoodie oversize", emoji:"🧥", category:"Mode", cost:75, price:118},
+    {id:"speaker", name:"Enceinte Bluetooth", emoji:"🔊", category:"Électronique", cost:185, price:285},
+    {id:"tablet", name:"Tablette", emoji:"📱", category:"Tech premium", cost:390, price:570},
+    {id:"chair", name:"Chaise gaming", emoji:"🪑", category:"Gaming", cost:540, price:790},
+    {id:"vr", name:"Casque VR", emoji:"🥽", category:"Gaming premium", cost:850, price:1220},
+    {id:"goldwatch", name:"Montre prestige", emoji:"⌚", category:"Luxe", cost:3200, price:4400},
+    {id:"electricbike", name:"Vélo électrique", emoji:"🚲", category:"Mobilité", cost:4100, price:5650},
+    {id:"sportscar", name:"Supercar miniature", emoji:"🏁", category:"Prestige", cost:9800, price:13200},
+    {id:"arcade", name:"Mini borne arcade", emoji:"🕹️", category:"Gaming prestige", cost:16500, price:22000},
+    {id:"plush", name:"Peluche kawaii", emoji:"🧸", category:"Petits trésors", cost:28, price:44},
+    {id:"wallart", name:"Poster encadré", emoji:"🖼️", category:"Décoration", cost:95, price:145},
+    {id:"smartbulb", name:"Ampoule connectée", emoji:"💡", category:"Maison connectée", cost:145, price:220},
+    {id:"mic", name:"Micro gaming", emoji:"🎙️", category:"Gaming", cost:260, price:390},
+    {id:"keyboardpro", name:"Clavier premium", emoji:"⌨️", category:"Gaming premium", cost:720, price:1050},
+    {id:"skate", name:"Skateboard", emoji:"🛹", category:"Mobilité", cost:1100, price:1580},
+    {id:"jewelrybox", name:"Boîte à bijoux", emoji:"💍", category:"Luxe", cost:2800, price:3950},
+    {id:"goldenlamp", name:"Lampe dorée", emoji:"🪔", category:"Prestige", cost:6400, price:8900},
+    {id:"gamingpc", name:"PC gaming complet", emoji:"🖥️", category:"Gaming prestige", cost:18500, price:25500},
+    {id:"diamondcase", name:"Vitrine diamant", emoji:"💎", category:"Prestige", cost:36000, price:49500}  ];
+
+  const employeeRoster = [
+    {id:"helper",name:"Petit vendeur",emoji:"🧑‍💼",rarity:"Common",chance:55,color:"common"},
+    {id:"cashier",name:"Caissier",emoji:"🧾",rarity:"Common",chance:55,color:"common"},
+    {id:"delivery",name:"Livreur rapide",emoji:"🛵",rarity:"Uncommon",chance:25,color:"uncommon"},
+    {id:"decorator",name:"Décorateur",emoji:"🎨",rarity:"Uncommon",chance:25,color:"uncommon"},
+    {id:"salesstar",name:"Vendeur étoile",emoji:"⭐",rarity:"Rare",chance:12,color:"rare"},
+    {id:"manager",name:"Manager",emoji:"📋",rarity:"Rare",chance:12,color:"rare"},
+    {id:"influencer",name:"Influenceur",emoji:"📱",rarity:"Epic",chance:5,color:"epic"},
+    {id:"fashion",name:"Styliste",emoji:"👗",rarity:"Epic",chance:5,color:"epic"},
+    {id:"mogul",name:"Magnat",emoji:"💎",rarity:"Legendary",chance:2,color:"legendary"},
+    {id:"inventor",name:"Inventeur",emoji:"🧪",rarity:"Legendary",chance:2,color:"legendary"},
+    {id:"royal",name:"Client royal",emoji:"👑",rarity:"Mythic",chance:0.8,color:"mythic"},
+    {id:"phantom",name:"Employé fantôme",emoji:"👻",rarity:"Mythic",chance:0.8,color:"mythic"},
+    {id:"void",name:"Vendeur du Néant",emoji:"🌌",rarity:"Secret",chance:0.2,color:"secret"},
+    {id:"golden",name:"Employé doré",emoji:"🟡",rarity:"Secret",chance:0.2,color:"secret"},
+    {id:"barista",name:"Barista",emoji:"☕",rarity:"Common",chance:55,color:"common"},
+    {id:"stockist",name:"Rayonniste",emoji:"📦",rarity:"Common",chance:55,color:"common"},
+    {id:"promoter",name:"Promoteur",emoji:"📣",rarity:"Uncommon",chance:25,color:"uncommon"},
+    {id:"organizer",name:"Organisateur",emoji:"🗂️",rarity:"Uncommon",chance:25,color:"uncommon"},
+    {id:"analyst",name:"Analyste",emoji:"📊",rarity:"Rare",chance:12,color:"rare"},
+    {id:"photographer",name:"Photographe",emoji:"📷",rarity:"Rare",chance:12,color:"rare"},
+    {id:"streamer",name:"Streamer star",emoji:"🎥",rarity:"Epic",chance:5,color:"epic"},
+    {id:"architect",name:"Architecte boutique",emoji:"🏗️",rarity:"Epic",chance:5,color:"epic"},
+    {id:"champion",name:"Champion du commerce",emoji:"🏅",rarity:"Legendary",chance:2,color:"legendary"},
+    {id:"alchemist",name:"Alchimiste des ventes",emoji:"⚗️",rarity:"Mythic",chance:0.8,color:"mythic"},
+    {id:"star",name:"Star secrète",emoji:"🌠",rarity:"Secret",chance:0.2,color:"secret"},
+    {id:"greeter",name:"Accueil souriant",emoji:"😊",rarity:"Common",chance:55,color:"common"},
+    {id:"packager",name:"Emballeur express",emoji:"🎁",rarity:"Uncommon",chance:25,color:"uncommon"},
+    {id:"trendsetter",name:"Détecteur de tendances",emoji:"🪩",rarity:"Rare",chance:12,color:"rare"},
+    {id:"ceo",name:"Directeur visionnaire",emoji:"🕴️",rarity:"Epic",chance:5,color:"epic"},
+    {id:"fortune",name:"Fortune cosmique",emoji:"🌟",rarity:"Mythic",chance:0.8,color:"mythic"}
+  ];
+  const ROLL_COST = 0;
+
+  const quizQuestions = [
+    {q:"Tu achètes un article 20 € et tu le revends 32 €. Quel est ton bénéfice brut ?", answers:["12 €","20 €","32 €"], correct:0},
+    {q:"Que vaut-il mieux faire avant de commander beaucoup de stock ?", answers:["Vérifier la demande","Dépenser tout son argent","Augmenter les prix au hasard"], correct:0},
+    {q:"Un client achète un produit à 50 € qui t'a coûté 35 €. Quelle est ta marge brute ?", answers:["15 €","35 €","85 €"], correct:0},
+    {q:"Ton stock est presque vide et les ventes marchent bien. Quelle action est la plus utile ?", answers:["Recommander des articles","Fermer la boutique","Jeter le stock restant"], correct:0},
+    {q:"Pourquoi garder une réserve d'argent ?", answers:["Pour pouvoir acheter du stock","Pour ne plus vendre","Pour faire baisser les prix"], correct:0}
+  ];
+
+  const defaultState = () => ({
+    money: START_MONEY,
+    day: 1,
+    stock: Object.fromEntries(products.map(p => [p.id, 0])),
+    employeeCollection: {},
+    activeEmployees: [],
+    lastRoll: null,
+    pseudo: "",
+    loginStreak: 0, lastLoginDate: "",
+    sales: 0,
+    revenue: 0,
+    spent: 0,
+    quest: {type:"sales", target:3, progress:0, reward:60, claimed:false},
+    quizDay: 0,
+    quizDone: false,
+    logs: []
+  });
+
+  let state = defaultState();
+  let toastTimer;
+  // Musique ambiante originale générée par synthèse audio (aucun fichier externe).
+  let audioCtx = null, musicTimer = null, musicEnabled = false, musicStep = 0;
+  const ambientNotes = [[196,247,294],[174,220,262],[147,196,247],[165,220,277],[196,247,330],[174,233,294],[155,207,261],[165,220,294]];
+  function audioReady(){ if(!audioCtx){ const AC=window.AudioContext||window.webkitAudioContext; if(AC) audioCtx=new AC(); } if(audioCtx && audioCtx.state==='suspended') audioCtx.resume(); return audioCtx; }
+  function softNote(freq, start, duration, volume=0.035, type='sine'){ const ctx=audioReady(); if(!ctx)return; const osc=ctx.createOscillator(), gain=ctx.createGain(); osc.type=type; osc.frequency.setValueAtTime(freq,start); gain.gain.setValueAtTime(0.0001,start); gain.gain.exponentialRampToValueAtTime(volume,start+0.06); gain.gain.exponentialRampToValueAtTime(0.0001,start+duration); osc.connect(gain); gain.connect(ctx.destination); osc.start(start); osc.stop(start+duration+0.03); }
+  function ambientLoop(){ const ctx=audioReady(); if(!ctx || !musicEnabled)return; const chord=ambientNotes[musicStep%ambientNotes.length]; const t=ctx.currentTime+0.05; chord.forEach((f,i)=>softNote(f,t+i*0.12,2.6,0.018,'sine')); softNote(chord[0]/2,t,2.8,0.012,'triangle'); musicStep++; }
+  function setMusic(on){ musicEnabled=on; const btn=document.getElementById('music-toggle'); if(on){audioReady();ambientLoop();if(musicTimer)clearInterval(musicTimer);musicTimer=setInterval(ambientLoop,2800);}else{if(musicTimer)clearInterval(musicTimer);musicTimer=null;} if(btn)btn.textContent=on?'♫ Musique : ON':'♫ Musique : OFF'; }
+  function rollSound(){ const ctx=audioReady(); if(!ctx)return; const t=ctx.currentTime; [440,554,659,784,988].forEach((f,i)=>softNote(f,t+i*0.075,0.11,0.025,'triangle')); }
+  function revealSound(rarity){ const ctx=audioReady(); if(!ctx)return; const base=({Common:392,Uncommon:494,Rare:587,Epic:698,Legendary:880,Mythic:1046,Secret:1318})[rarity]||523; [1,1.25,1.5].forEach((mult,i)=>softNote(base*mult,ctx.currentTime+i*0.1,0.32,rarity==='Secret'?0.05:0.032,'sine')); }
+  async function toggleFullscreen(){ try{ if(!document.fullscreenElement) await document.documentElement.requestFullscreen(); else await document.exitFullscreen(); }catch(e){showToast('Le plein écran n’est pas disponible ici.');} }
+
+  function safeNumber(value, fallback=0) {
+    const n = Number(value);
+    return Number.isSafeInteger(n) && n >= 0 ? n : fallback;
+  }
+
+  function loadGame() {
+    try {
+      const raw = localStorage.getItem(SAVE_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw);
+      if (!saved || typeof saved !== "object") return;
+
+      state.pseudo = state.pseudo || saved.pseudo || "";
+      state.money = safeNumber(saved.money, START_MONEY);
+      state.day = Math.max(1, safeNumber(saved.day, 1));
+      state.loginStreak = safeNumber(saved.loginStreak, 0);
+      state.lastLoginDate = typeof saved.lastLoginDate === "string" ? saved.lastLoginDate : "";
+      state.employeeCollection = saved.employeeCollection && typeof saved.employeeCollection === "object" ? saved.employeeCollection : {};
+      state.activeEmployees = Array.isArray(saved.activeEmployees) ? saved.activeEmployees.filter(id => typeof id === "string").slice(0,5) : [];
+      state.lastRoll = saved.lastRoll || null;
+      state.sales = safeNumber(saved.sales, 0);
+      state.revenue = safeNumber(saved.revenue, 0);
+      state.spent = safeNumber(saved.spent, 0);
+      state.stock = Object.fromEntries(products.map(p => [p.id, safeNumber(saved.stock?.[p.id], 0)]));
+      state.logs = Array.isArray(saved.logs) ? saved.logs.filter(x => typeof x === "string").slice(0, 30) : [];
+      if (saved.quest && ["sales","orders","revenue"].includes(saved.quest.type)) {
+        state.quest = {
+          type: saved.quest.type,
+          target: safeNumber(saved.quest.target, 3) || 3,
+          progress: safeNumber(saved.quest.progress, 0),
+          reward: safeNumber(saved.quest.reward, 60),
+          claimed: Boolean(saved.quest.claimed)
+        };
+      }
+      state.quizDay = safeNumber(saved.quizDay, 0);
+      state.quizDone = Boolean(saved.quizDone);
+    } catch (error) {
+      console.warn("Sauvegarde PopShop illisible :", error);
+    }
+  }
+
+  function saveGame() {
+    try { if(state.pseudo) SAVE_KEY = profileKey(state.pseudo); localStorage.setItem(SAVE_KEY, JSON.stringify(state)); }
+    catch (error) { console.warn("Impossible de sauvegarder :", error); }
+  }
+
+  function updateLoginStreak(){
+    const today = new Date();
+    const dateKey = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}`;
+    if(state.lastLoginDate === dateKey) return; // refresh does not re-award
+    const yesterday = new Date(today); yesterday.setDate(yesterday.getDate()-1);
+    const yesterdayKey = `${yesterday.getFullYear()}-${String(yesterday.getMonth()+1).padStart(2,"0")}-${String(yesterday.getDate()).padStart(2,"0")}`;
+    state.loginStreak = state.lastLoginDate === yesterdayKey ? Math.min(999, state.loginStreak+1) : 1;
+    state.lastLoginDate = dateKey;
+    const bonus = Math.min(120, 30 + (state.loginStreak-1)*10);
+    earn(bonus);
+    addLog(`🔥 Connexion du jour : streak ${state.loginStreak} · bonus +${euro(bonus)} !`);
+    if(state.loginStreak % 7 === 0){ earn(150); addLog(`🎉 ${state.loginStreak} jours de streak ! Bonus de semaine +150 €.`); }
+    saveGame();
+  }
+
+  function euro(amount) {
+    return Math.round(amount).toLocaleString("fr-FR") + " €";
+  }
+
+  function netResult() {
+    return state.money - START_MONEY;
+  }
+
+  function addLog(message, kind="info") {
+    state.logs.unshift(message);
+    state.logs = state.logs.slice(0, 30);
+    renderLog();
+    saveGame();
+  }
+
+  function showToast(message) {
+    const el = document.getElementById("toast");
+    el.textContent = message;
+    el.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove("show"), 2300);
+  }
+
+  function spend(amount) {
+    amount = Math.round(amount);
+    if (!Number.isSafeInteger(amount) || amount < 0 || state.money < amount) return false;
+    state.money -= amount;
+    state.spent += amount;
+    return true;
+  }
+
+  function earn(amount) {
+    amount = Math.round(amount);
+    if (!Number.isSafeInteger(amount) || amount <= 0) return false;
+    if (state.money + amount > Number.MAX_SAFE_INTEGER) return false;
+    state.money += amount;
+    return true;
+  }
+
+  function updateQuest(type, amount=1) {
+    if (state.quest.claimed) return;
+    if (state.quest.type === type) {
+      state.quest.progress = Math.min(state.quest.target, state.quest.progress + amount);
+    }
+  }
+
+  function buyProduct(product) {
+    if (!spend(product.cost)) {
+      showToast("Pas assez d'argent pour cette commande.");
+      return;
+    }
+    state.stock[product.id]++;
+    updateQuest("orders");
+    addLog(`📦 Commande reçue : ${product.name}.`);
+    showToast(`${product.name} ajouté au stock !`);
+    render();
+  }
+
+  function employeeBoostRate(){
+    const active = state.activeEmployees.map(id=>employeeRoster.find(e=>e.id===id)).filter(Boolean);
+    // Bonus de vente cumulés, plafonnés à 20%.
+    return Math.min(0.20, active.reduce((sum,e)=>sum+({Common:0.01,Uncommon:0.015,Rare:0.02,Epic:0.03,Legendary:0.04,Mythic:0.05,Secret:0.06}[e.rarity]||0),0));
+  }
+  function employeeLuck(){
+    const active=state.activeEmployees.map(id=>employeeRoster.find(e=>e.id===id)).filter(Boolean);
+    const luckByRarity={Common:0.5,Uncommon:1,Rare:1.8,Epic:3,Legendary:4.5,Mythic:6,Secret:8};
+    return Math.min(30, active.reduce((sum,e)=>sum+(luckByRarity[e.rarity]||0),0));
+  }
+  function adjustedSalePrice(product){ return Math.round(product.price * (1 + employeeBoostRate())); }
+
+  function sellProduct(product) {
+    if (state.stock[product.id] <= 0) return false;
+    const salePrice = adjustedSalePrice(product);
+    if (!earn(salePrice)) {
+      showToast("Le solde a atteint sa limite.");
+      return false;
+    }
+    state.stock[product.id]--;
+    state.sales++;
+    state.revenue += salePrice;
+    updateQuest("sales");
+    updateQuest("revenue", salePrice);
+    addLog(`🛍️ ${product.name} vendu : +${euro(salePrice)}.`);
+    return true;
+  }
+
+  function pickEmployee() {
+    // Luck improves rare+ odds proportionally while keeping the roll normalized.
+    const luck=employeeLuck();
+    const rarities=["Common","Uncommon","Rare","Epic","Legendary","Mythic","Secret"];
+    const base={Common:55,Uncommon:25,Rare:12,Epic:5,Legendary:2,Mythic:0.8,Secret:0.2};
+    const boosted={...base};
+    const luckMultipliers={Rare:1.5,Epic:2,Legendary:2.5,Mythic:3.5,Secret:5};
+    Object.entries(luckMultipliers).forEach(([r,m])=>boosted[r]=base[r]*(1+(luck/100)*m));
+    const total=rarities.reduce((sum,r)=>sum+boosted[r],0);
+    let roll=Math.random()*total, rarity=rarities[0];
+    for(const r of rarities){ roll-=boosted[r]; if(roll<=0){rarity=r;break;} }
+    const options=employeeRoster.filter(e=>e.rarity===rarity);
+    return options[Math.floor(Math.random()*options.length)];
+  }
+
+  let rollInProgress = false;
+  function rollEmployee() {
+    if (rollInProgress) return;
+    rollInProgress = true;
+    const button = document.getElementById("roll-button");
+    const display = document.getElementById("roll-display");
+    if (button) { button.disabled = true; button.textContent = "🌈 Roll en cours..."; }
+    if (!display) { rollInProgress = false; return; }
+    display.className = "roll-display spinning";
+    rollSound();
+    const rarityColors = {Common:"#a8b3c8",Uncommon:"#43df98",Rare:"#54c8ff",Epic:"#bd77ff",Legendary:"#ffd166",Mythic:"#ff66ca",Secret:"#f8fbff"};
+    let tick = 0;
+    const spin = setInterval(() => {
+      const preview = employeeRoster[Math.floor(Math.random()*employeeRoster.length)];
+      const color = rarityColors[preview.rarity] || "#a890ff";
+      display.style.setProperty("--rarity-glow",color);
+      display.innerHTML = `<div class="roll-emoji roll-flash">${preview.emoji}</div><div class="roll-caption">${preview.name}</div><div class="roll-rarity-note" style="color:${color}">${preview.rarity.toUpperCase()}</div>`;
+      tick++;
+    }, 95);
+    const employee = pickEmployee();
+    setTimeout(() => {
+      clearInterval(spin);
+      state.employeeCollection[employee.id] = (safeNumber(state.employeeCollection[employee.id],0) || 0) + 1;
+      state.lastRoll = employee.id;
+      addLog(`🎲 Roll : ${employee.name} (${employee.rarity}) !`);
+      const good = ["Rare","Epic","Legendary","Mythic","Secret"].includes(employee.rarity);
+      const glow = rarityColors[employee.rarity] || "#a890ff";
+      display.className = `roll-display reveal ${good ? "good-result high-result" : ""} rarity-${employee.color}`;
+      revealSound(employee.rarity);
+      display.style.setProperty("--rarity-glow",glow);
+      display.innerHTML = `<div class="roll-emoji roll-flash">${employee.emoji}</div><div class="roll-caption">${employee.name}</div><div class="roll-rarity-note" style="color:${glow};font-weight:950">${employee.rarity.toUpperCase()}${good ? " · BON ROLL ! ✨" : " · EMPLOYÉ OBTENU"}</div>`;
+      showToast(good ? `✨ BON ROLL ! ${employee.name} (${employee.rarity})` : `Tu as obtenu ${employee.name} !`);
+      renderHeader(); renderIndex(); renderTeam(); renderLog(); saveGame();
+      // Unlock rolling immediately and refresh employee slots/choices as soon as the employee is awarded.
+      rollInProgress = false;
+      if (button) { button.disabled = false; button.textContent = "🎲 Lancer un roll · GRATUIT"; }
+    }, 2900);
+  }
+
+  function renderRoll() {
+    const container = document.getElementById("roll");
+    const found = Object.values(state.employeeCollection).reduce((sum,n)=>sum+safeNumber(n,0),0);
+    const last = employeeRoster.find(e => e.id === state.lastRoll);
+    container.innerHTML = `
+      <div class="roll-wrap">
+        <div style="font-weight:900;letter-spacing:2px;color:#d2c4ff">🎲 MACHINE À EMPLOYÉS</div><h3>Qui vas-tu obtenir ?</h3>
+        <p>Le roll est <strong>GRATUIT</strong> ! Plus la rareté est élevée, plus l'employé est difficile à obtenir.</p><div class="index-summary">🍀 Luck de ton équipe : <strong>+${employeeLuck().toFixed(1)} %</strong> · améliore les chances de raretés élevées.</div>
+        <div class="roll-display" id="roll-display"><div class="roll-emoji">${last ? last.emoji : "🎁"}</div><div class="roll-caption">${last ? last.name : "Prêt à roll ?"}</div><div class="roll-rarity-note">${last ? last.rarity : "Appuie pour tenter ta chance"}</div></div>
+        <button class="primary" id="roll-button" ${state.money < ROLL_COST ? "disabled" : ""}>🎲 Lancer un roll · GRATUIT</button>
+        <p>Employés obtenus : <strong>${found}</strong></p>
+      </div>
+      <div class="index-summary">🎯 Chances de roll<br><small>Common 55% · Uncommon 25% · Rare 12% · Epic 5% · Legendary 2% · Mythic 0,8% · Secret 0,2%</small></div>
+    `;
+    document.getElementById("roll-button").addEventListener("click", rollEmployee);
+  }
+
+  function renderIndex() {
+    const container = document.getElementById("index");
+    const ownedTotal = Object.values(state.employeeCollection).reduce((sum,n)=>sum+safeNumber(n,0),0);
+    container.innerHTML = `<div class="index-summary">📚 Index employés : ${employeeRoster.filter(e=>safeNumber(state.employeeCollection[e.id],0)>0).length} / ${employeeRoster.length} découverts · ${ownedTotal} obtenus au total</div>`;
+    employeeRoster.forEach(employee => {
+      const count = safeNumber(state.employeeCollection[employee.id],0);
+      const card = document.createElement("article");
+      card.className = `card employee-card rarity-${employee.color}`;
+      card.innerHTML = `
+        <div class="item-art">${count > 0 ? employee.emoji : "❔"}</div>
+        <span class="tag rarity-label">${employee.rarity}</span>
+        <h3>${count > 0 ? employee.name : "???"}</h3>
+        <p class="description">${count > 0 ? `Possédé : ${count}` : "Non découvert"}</p><p class="skill-note">${count > 0 ? skillText(employee) : "Compétence inconnue"}</p>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+
+  function skillText(employee){
+    const boost={Common:"+0,5 %",Uncommon:"+0,8 %",Rare:"+1,2 %",Epic:"+1,6 %",Legendary:"+2 %",Mythic:"+2,5 %",Secret:"+3 %"}[employee.rarity]||"bonus";
+    const luck={Common:"+0,5",Uncommon:"+1",Rare:"+1,8",Epic:"+3",Legendary:"+4,5",Mythic:"+6",Secret:"+8"}[employee.rarity]||"0";
+    return `${boost} sur les ventes · +${luck} Luck pour les rolls`;
+  }
+
+  const teamLimit = 5;
+  const employeeSellValues = {Common:25, Uncommon:70, Rare:180, Epic:450, Legendary:1200, Mythic:4000, Secret:15000};
+  function activeCount(id) { return state.activeEmployees.filter(x => x === id).length; }
+  function deployEmployee(id) {
+    if (state.activeEmployees.length >= teamLimit) { showToast("Ton magasin est déjà rempli (5/5) !"); return; }
+    const owned = safeNumber(state.employeeCollection[id], 0);
+    if (owned <= activeCount(id)) { showToast("Tu n'as plus de copie disponible de cet employé."); return; }
+    state.activeEmployees.push(id);
+    addLog(`👥 ${employeeRoster.find(e=>e.id===id)?.name || "Employé"} rejoint ton magasin.`);
+    showToast("Employé ajouté au magasin !"); renderTeam(); saveGame();
+  }
+  function sellActiveEmployee(index) {
+    const id = state.activeEmployees[index]; if (!id) return;
+    const employee = employeeRoster.find(e=>e.id===id); if (!employee) return;
+    const value = employeeSellValues[employee.rarity] || 25;
+    if (!confirm(`Vendre ${employee.name} pour ${euro(value)} ?`)) return;
+    state.activeEmployees.splice(index,1);
+    state.employeeCollection[id] = Math.max(0, safeNumber(state.employeeCollection[id],0)-1);
+    if (!state.employeeCollection[id]) delete state.employeeCollection[id];
+    earn(value);
+    addLog(`💸 ${employee.name} vendu : +${euro(value)}.`);
+    showToast(`Employé vendu +${euro(value)} !`); renderTeam(); renderIndex(); renderHeader(); saveGame();
+  }
+  function renderTeam() {
+    const container = document.getElementById("team"); if (!container) return;
+    const available = employeeRoster.filter(e => safeNumber(state.employeeCollection[e.id],0) > activeCount(e.id));
+    container.innerHTML = `<div class="index-summary team-summary">👥 Employés dans le magasin <strong>${state.activeEmployees.length}/${teamLimit}</strong><p class="description">Choisis jusqu'à 5 employés pour les placer dans ta boutique. Tu peux vendre ceux qui sont placés pour gagner de l'argent.</p></div>`;
+    for(let slot=0;slot<teamLimit;slot++) {
+      const id=state.activeEmployees[slot]; const employee=employeeRoster.find(e=>e.id===id);
+      if(employee) {
+        const value=employeeSellValues[employee.rarity]||25;
+        const card=document.createElement("article"); card.className=`card employee-card rarity-${employee.color} team-slot`;
+        card.innerHTML=`<div class="slot-number">SLOT ${slot+1}</div><div class="item-art">${employee.emoji}</div><span class="tag rarity-label">${employee.rarity}</span><h3>${employee.name}</h3><p class="description">En boutique · valeur de vente ${euro(value)}</p><p class="skill-note">✨ ${skillText(employee)}</p><button class="danger sell-employee">💰 Vendre cet employé</button>`;
+        card.querySelector("button").addEventListener("click",()=>sellActiveEmployee(slot)); container.appendChild(card);
+      } else {
+        const card=document.createElement("article"); card.className="card team-slot empty-slot";
+        card.innerHTML=`<div class="item-art">➕</div><h3>Slot ${slot+1} vide</h3><p class="description">Place un employé ici depuis ta collection.</p><select class="employee-select"><option value="">Choisir un employé...</option>${available.map(e=>`<option value="${e.id}">${e.emoji} ${e.name} (${e.rarity}) · x${safeNumber(state.employeeCollection[e.id],0)-activeCount(e.id)}</option>`).join("")}</select>`;
+        const select=card.querySelector("select"); select.addEventListener("change",()=>{if(select.value)deployEmployee(select.value);}); container.appendChild(card);
+      }
+    }
+    const collectionCount=Object.values(state.employeeCollection).reduce((sum,n)=>sum+safeNumber(n,0),0);
+    const footer=document.createElement("div"); footer.className="index-summary team-summary"; footer.innerHTML=`📦 Collection : ${collectionCount} employés au total · <strong>${available.length} type(s) avec copie libre</strong>`; container.appendChild(footer);
+  }
+
+  function makeDailyQuest() {
+    const choices = [
+      {type:"sales", target:3, reward:70, title:"Ventes du jour", text:"Vends 3 articles."},
+      {type:"orders", target:4, reward:85, title:"Réassort malin", text:"Commande 4 articles."},
+      {type:"revenue", target:150, reward:100, title:"Belle journée", text:"Génère 150 € de ventes."}
+    ];
+    const q = choices[(state.day - 1) % choices.length];
+    state.quest = {...q, progress:0, claimed:false};
+  }
+
+  function claimQuest() {
+    const q = state.quest;
+    if (q.claimed || q.progress < q.target) return;
+    q.claimed = true;
+    earn(q.reward);
+    addLog(`🏆 Mission terminée : récompense de ${euro(q.reward)}.`);
+    showToast(`Mission réussie : +${euro(q.reward)} !`);
+    render();
+  }
+
+  function answerQuiz(index) {
+    if (state.quizDone) return;
+    state.quizDone = true;
+    const questionIndex = (state.day - 1) % quizQuestions.length;
+    const question = quizQuestions[questionIndex];
+    const feedback = document.getElementById("quiz-feedback");
+    document.querySelectorAll(".answer").forEach(button => button.disabled = true);
+    if (index === question.correct) {
+      earn(40);
+      feedback.textContent = "✅ Bonne réponse ! Tu gagnes 40 €.";
+      feedback.style.color = "var(--green)";
+      addLog("🧠 Bonne réponse au quiz : +40 €.");
+    } else {
+      feedback.textContent = `Pas tout à fait ! La bonne réponse était : ${question.answers[question.correct]}.`;
+      feedback.style.color = "var(--red)";
+      addLog("🧠 Quiz du jour terminé.");
+    }
+    saveGame();
+    renderHeader();
+  }
+
+  function renderHeader() {
+    document.getElementById("money").textContent = euro(state.money);
+    const result = netResult();
+    const profitEl = document.getElementById("profit");
+    profitEl.textContent = (result > 0 ? "+" : "") + euro(result);
+    profitEl.style.color = result < 0 ? "var(--red)" : "var(--purple)";
+    document.getElementById("day").textContent = "Jour " + state.day;
+    const streakEl=document.getElementById("streak-display"); if(streakEl) streakEl.textContent=`${state.loginStreak||0} jour${state.loginStreak===1?"":"s"}`;
+    const playerTag=document.getElementById("player-tag"); if(playerTag) playerTag.textContent=state.pseudo ? "👤 "+state.pseudo : "";
+  }
+
+  function renderLog() {
+    const log = document.getElementById("log");
+    log.innerHTML = "";
+    if (!state.logs.length) {
+      log.innerHTML = '<div class="log-entry info">Bienvenue ! Ta boutique ouvre ses portes.</div>';
+      return;
+    }
+    state.logs.forEach(message => {
+      const item = document.createElement("div");
+      item.className = "log-entry info";
+      item.textContent = message;
+      log.appendChild(item);
+    });
+  }
+
+  function productRarity(product){
+    if(product.cost < 30) return {name:"Common",cls:"common"};
+    if(product.cost < 150) return {name:"Uncommon",cls:"uncommon"};
+    if(product.cost < 500) return {name:"Rare",cls:"rare"};
+    if(product.cost < 1500) return {name:"Epic",cls:"epic"};
+    if(product.cost < 5000) return {name:"Legendary",cls:"legendary"};
+    if(product.cost < 12000) return {name:"Mythic",cls:"mythic"};
+    return {name:"Secret",cls:"secret"};
+  }
+
+  function renderMarket() {
+    const container = document.getElementById("market");
+    container.innerHTML = "";
+    [...products].sort((a,b)=>a.cost-b.cost).forEach(product => {
+      const rarity = productRarity(product);
+      const card = document.createElement("article");
+      card.className = `card rarity-${rarity.cls}`;
+      card.innerHTML = `
+        <div class="item-art">${product.emoji}</div>
+        <span class="tag">${product.category}</span> <span class="tag rarity-label">${rarity.name}</span>
+        <h3>${product.name}</h3>
+        <div class="description">En stock : ${state.stock[product.id]}</div>
+        <div class="price-line"><span class="cost">Achat ${euro(product.cost)}</span><span class="sell-price">Vente ${euro(product.price)}</span></div>
+        <button class="primary" ${state.money < product.cost ? "disabled" : ""}>Commander</button>`;
+      card.querySelector("button").addEventListener("click", () => buyProduct(product));
+      container.appendChild(card);
+    });
+  }
+
+  function renderShop() {
+    const container = document.getElementById("shop");
+    container.innerHTML = "";
+    const available = products.filter(p => state.stock[p.id] > 0);
+    if (!available.length) {
+      container.innerHTML = '<div class="empty"><div style="font-size:42px">🛍️</div><h3>Ta boutique attend ses premiers articles !</h3><p>Va chez les fournisseurs pour commander du stock.</p></div>';
+      return;
+    }
+    available.sort((a,b)=>a.price-b.price).forEach(product => {
+      const rarity = productRarity(product);
+      const card = document.createElement("article");
+      card.className = `card rarity-${rarity.cls}`;
+      card.innerHTML = `
+        <div class="item-art">${product.emoji}</div>
+        <span class="tag">${product.category}</span> <span class="tag rarity-label">${rarity.name}</span>
+        <h3>${product.name}</h3>
+        <p class="stock-info">📦 Stock disponible : <strong>${state.stock[product.id]}</strong></p>
+        <div class="price-line"><span class="sell-price">Prix de vente</span><span class="sell-price">${euro(adjustedSalePrice(product))}</span></div>
+        <button class="primary">Vendre un article</button>`;
+      card.querySelector("button").addEventListener("click", () => {
+        if (sellProduct(product)) {
+          showToast(`Vente réussie : +${euro(adjustedSalePrice(product))} !`);
+          render();
+        }
+      });
+      container.appendChild(card);
+    });
+  }
+
+  function renderQuests() {
+    const container = document.getElementById("quests");
+    const q = state.quest;
+    const progress = Math.min(q.progress, q.target);
+    const percent = Math.min(100, Math.round(progress / q.target * 100));
+    const questName = q.type === "sales" ? "Ventes du jour" : q.type === "orders" ? "Réassort malin" : "Belle journée";
+    const questText = q.type === "sales" ? `Vends ${q.target} articles.` : q.type === "orders" ? `Commande ${q.target} articles.` : `Génère ${q.target} € de ventes.`;
+    const question = quizQuestions[(state.day - 1) % quizQuestions.length];
+    const alreadyAnswered = state.quizDone && state.quizDay === state.day;
+
+    container.innerHTML = `
+      <div class="quest-card">
+        <span class="tag">🏆 Mission du jour</span>
+        <h3>${questName}</h3>
+        <p>${questText}</p>
+        <div class="progress"><div style="width:${percent}%"></div></div>
+        <p><strong>${progress} / ${q.target}</strong> · Récompense : <strong>${euro(q.reward)}</strong></p>
+        <button id="claim-quest" class="primary" ${q.claimed || progress < q.target ? "disabled" : ""}>
+          ${q.claimed ? "Récompense récupérée ✓" : "Récupérer ma récompense"}
+        </button>
+      </div>
+      <div class="quiz">
+        <span class="tag">🧠 Question du jour · +40 €</span>
+        <h3>Le petit quiz du commerçant</h3>
+        <p>${question.q}</p>
+        <div class="answer-list">
+          ${question.answers.map((answer, index) => `<button class="answer" data-answer="${index}" ${alreadyAnswered ? "disabled" : ""}>${answer}</button>`).join("")}
+        </div>
+        <div class="feedback" id="quiz-feedback">${alreadyAnswered ? "Tu as déjà répondu au quiz aujourd'hui." : ""}</div>
+      </div>`;
+    document.getElementById("claim-quest").addEventListener("click", claimQuest);
+    container.querySelectorAll(".answer").forEach(button => {
+      button.addEventListener("click", () => answerQuiz(Number(button.dataset.answer)));
+    });
+  }
+
+  function render() {
+    renderHeader();
+    renderMarket();
+    renderShop();
+    renderRoll();
+    renderTeam();
+    renderIndex();
+    renderQuests();
+    renderLog();
+    saveGame();
+  }
+
+  const pages = {
+    market: ["Fournisseurs", "Commande des articles pour remplir ton stock."],
+    shop: ["Ma boutique", "Vends tes articles et surveille ton stock."],
+    roll: ["Roll employés", "Roll pour obtenir des employés de différentes raretés."],
+    team: ["Mon magasin · 5 slots", "Place jusqu’à 5 employés et vends ceux que tu veux remplacer."],
+    index: ["Index des employés", "Découvre et collectionne tous les employés."],
+    quests: ["Missions & quiz", "Accomplis la mission du jour et réponds à la question."]
+  };
+
+  document.querySelectorAll(".nav-button").forEach(button => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll(".nav-button").forEach(b => b.classList.remove("active"));
+      button.classList.add("active");
+      const page = button.dataset.page;
+      ["market","shop","roll","team","index","quests"].forEach(id => {
+        document.getElementById(id).classList.toggle("hidden", id !== page);
+      });
+      document.getElementById("page-title").textContent = pages[page][0];
+      document.getElementById("page-subtitle").textContent = pages[page][1];
+    });
+  });
+
+  const pseudoScreen=document.getElementById("pseudo-screen"), introScreen=document.getElementById("intro-screen");
+  // Le pseudo est demandé à chaque lancement pour ouvrir le profil correspondant.
+  pseudoScreen.classList.remove("hidden");
+  document.getElementById("reset").addEventListener("click", () => {
+    if (!state.pseudo) return;
+    if (!confirm(`Recommencer la partie de ${state.pseudo} ? Toute sa progression sera effacée.`)) return;
+    localStorage.removeItem(profileKey(state.pseudo));
+    const keepName=state.pseudo;
+    state=defaultState(); state.pseudo=keepName; SAVE_KEY=profileKey(keepName);
+    addLog("🌟 Nouvelle partie : tu commences avec 500 € !");
+    render(); saveGame(); showToast("Nouvelle partie lancée !");
+  });
+
+  document.getElementById("save-button").addEventListener("click",()=>{saveGame();showToast("💾 Partie sauvegardée !");});
+  document.getElementById("pseudo-confirm").addEventListener("click",()=>{
+    const name=document.getElementById("pseudo-input").value.trim(); if(!name){showToast("Choisis un pseudo pour continuer.");return;}
+    SAVE_KEY=profileKey(name);
+    // Migration de l'ancienne sauvegarde commune uniquement si elle correspond au pseudo choisi.
+    if(!localStorage.getItem(SAVE_KEY)){
+      try {
+        const legacyRaw=localStorage.getItem("popshop_save_v1");
+        const legacyPlayer=(localStorage.getItem("popshop_player")||"").trim().toLowerCase();
+        if(legacyRaw){
+          const legacy=JSON.parse(legacyRaw);
+          const savedName=(legacy?.pseudo||"").trim().toLowerCase();
+          if(savedName===name.trim().toLowerCase() || legacyPlayer===name.trim().toLowerCase()){
+            localStorage.setItem(SAVE_KEY,legacyRaw);
+          }
+        }
+      } catch(e) { console.warn("Migration ancienne sauvegarde impossible",e); }
+    }
+    state=defaultState(); state.pseudo=name;
+    loadGame(); state.pseudo=name;
+    updateLoginStreak();
+    render(); saveGame();
+    pseudoScreen.classList.add("hidden"); introScreen.classList.remove("hidden");
+  });
+  document.getElementById("pseudo-input").addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("pseudo-confirm").click();});
+  document.getElementById("intro-start").addEventListener("click",()=>{introScreen.classList.add("hidden");setMusic(true);});
+  document.getElementById("music-toggle").addEventListener("click",()=>setMusic(!musicEnabled));
+  document.getElementById("fullscreen-toggle").addEventListener("click",toggleFullscreen);
+
+  // Un jour de jeu dure 60 secondes. La mission et le quiz sont renouvelés chaque jour.
+  setInterval(() => {
+    state.day++;
+    state.quizDone = false;
+    state.quizDay = state.day;
+    makeDailyQuest();
+    addLog(`☀️ Jour ${state.day} : nouvelle mission et nouveau quiz !`);
+    render();
+    showToast(`Jour ${state.day} : nouveaux défis disponibles !`);
+  }, 60000);
+
+  if (!state.quest || !state.quest.type) makeDailyQuest();
+  if (state.quizDay !== state.day) {
+    state.quizDone = false;
+    state.quizDay = state.day;
+  }
+  render();
+})();
+</script>
+</body>
+</html>
