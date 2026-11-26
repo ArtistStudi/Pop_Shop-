@@ -3,1019 +3,178 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PopShop — Gestion de boutique</title>
+<title>PopShop — Ma boutique</title>
 <style>
   :root {
-    --bg: #101426;
-    --panel: #19213a;
-    --panel-2: #202b49;
-    --panel-3: #263354;
-    --line: #334263;
-    --text: #f3f5ff;
-    --muted: #a4afce;
-    --purple: #a78bfa;
-    --pink: #ff78b7;
-    --cyan: #61d9f5;
-    --yellow: #ffd166;
-    --green: #63e6ad;
-    --red: #ff7189;
+    --ink: #26345b;
+    --muted: #7180a5;
+    --purple: #7657f6;
+    --pink: #ff6fae;
+    --cyan: #45c9e8;
+    --yellow: #ffca55;
+    --green: #28be88;
+    --red: #ef6680;
+    --paper: #fff;
+    --bg: #f2f5ff;
+    --line: #e7eaff;
+    --shadow: 0 12px 35px rgba(58, 76, 142, .10);
   }
 
   * { box-sizing: border-box; }
   body {
-    min-height: 100vh;
     margin: 0;
-    color: var(--text);
-    font-family: Inter, "Segoe UI", system-ui, sans-serif;
+    min-height: 100vh;
+    color: var(--ink);
+    font-family: Inter, ui-rounded, "Segoe UI", system-ui, sans-serif;
     background:
-      radial-gradient(ellipse at 12% 0%, #59336655, transparent 34%),
-      radial-gradient(ellipse at 90% 10%, #17647844, transparent 30%),
+      radial-gradient(ellipse at 8% 0%, #fff0f8 0, transparent 34%),
+      radial-gradient(ellipse at 92% 10%, #e5fbff 0, transparent 32%),
       var(--bg);
   }
-  button, input { font: inherit; }
-  button { cursor: pointer; }
 
-  /* Écrans d'accueil */
-  .screen {
-    position: fixed;
-    inset: 0;
-    z-index: 20;
-    display: grid;
-    place-items: center;
-    overflow-y: auto;
-    padding: 22px;
-    background: #070910;
-  }
-  .screen.hidden { display: none; }
-  .welcome-box {
-    width: min(560px, 100%);
-    padding: clamp(24px, 6vw, 48px);
-    border: 1px solid #343953;
-    border-radius: 26px;
-    background: linear-gradient(145deg, #151a2d, #101321);
-    box-shadow: 0 25px 90px #0009;
-    text-align: center;
-  }
-  .welcome-logo {
-    display: grid;
-    place-items: center;
-    width: 76px;
-    height: 76px;
-    margin: 0 auto 17px;
-    border-radius: 24px;
-    color: #101426;
-    font-size: 39px;
-    background: linear-gradient(135deg, var(--yellow), var(--pink), var(--purple));
-    box-shadow: 0 12px 35px #a78bfa3d;
-  }
-  .welcome-box h1 { margin: 0 0 10px; font-size: clamp(28px, 6vw, 40px); }
-  .welcome-box p { color: #c1c8df; line-height: 1.65; }
-  .name-input {
-    width: 100%;
-    margin: 15px 0 10px;
-    padding: 14px 16px;
-    border: 1px solid #4a5578;
-    border-radius: 13px;
-    outline: none;
-    color: white;
-    background: #0e1323;
-  }
-  .name-input:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px #61d9f522; }
-  .welcome-steps {
-    display: grid;
-    gap: 10px;
-    margin: 20px 0;
-    text-align: left;
-  }
-  .welcome-step {
-    padding: 12px 14px;
-    border: 1px solid #343e5c;
-    border-radius: 13px;
-    color: #d9def0;
-    background: #1b2238;
-  }
-  .welcome-step b { color: var(--yellow); }
-  .hint { min-height: 20px; color: var(--pink) !important; font-size: 13px; }
-
-  .primary, .secondary, .danger {
-    min-height: 41px;
-    padding: 10px 15px;
-    border: 0;
-    border-radius: 12px;
-    font-weight: 850;
-    transition: transform .15s, filter .15s;
-  }
-  .primary {
-    color: #15152b;
-    background: linear-gradient(100deg, var(--yellow), var(--pink));
-    box-shadow: 0 7px 18px #ff78b733;
-  }
-  .primary:hover:not(:disabled) { transform: translateY(-2px); filter: brightness(1.06); }
-  .primary:disabled { opacity: .4; cursor: not-allowed; box-shadow: none; }
-  .secondary { color: var(--cyan); background: #183849; border: 1px solid #28617a; }
-  .secondary:hover { background: #20475b; }
-  .danger { color: #ff9aab; background: #482738; border: 1px solid #744055; }
-
-  /* Barre supérieure et pages du jeu */
+  button { font: inherit; }
   .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px clamp(16px, 4vw, 55px);
+    background: rgba(255,255,255,.86);
+    border-bottom: 1px solid var(--line);
     position: sticky;
     top: 0;
     z-index: 5;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-    padding: 14px clamp(14px, 4vw, 48px);
-    border-bottom: 1px solid #ffffff12;
-    background: #11172beF;
-    backdrop-filter: blur(14px);
+    backdrop-filter: blur(12px);
   }
   .brand { display: flex; align-items: center; gap: 12px; }
   .brand-icon {
-    display: grid;
-    place-items: center;
-    width: 46px;
-    height: 46px;
-    border-radius: 15px;
-    font-size: 24px;
+    width: 48px; height: 48px; border-radius: 16px;
+    display: grid; place-items: center; color: white; font-size: 25px;
     background: linear-gradient(135deg, var(--pink), var(--purple));
+    box-shadow: 0 8px 18px #b69bff80;
   }
-  .brand h1 { margin: 0; font-size: 19px; }
+  .brand h1 { margin: 0; font-size: 21px; }
   .brand small { color: var(--muted); }
-  .top-right { display: flex; align-items: center; gap: 10px; }
-  .top-stats { display: flex; gap: 9px; }
+  .top-stats { display: flex; gap: 10px; }
   .top-stat {
-    min-width: 120px;
-    padding: 8px 12px;
-    border: 1px solid var(--line);
-    border-radius: 13px;
-    background: var(--panel);
+    min-width: 130px; padding: 9px 14px; border-radius: 15px;
+    background: white; border: 1px solid var(--line); box-shadow: 0 4px 12px #596cb20b;
   }
-  .top-stat span {
-    display: block;
-    margin-bottom: 2px;
-    color: var(--muted);
-    font-size: 10px;
-    font-weight: 850;
-    text-transform: uppercase;
-  }
-  .top-stat strong { color: var(--green); font-size: 17px; }
+  .top-stat span { display: block; color: var(--muted); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+  .top-stat strong { font-size: 18px; color: var(--green); }
   .top-stat.profit strong { color: var(--purple); }
-  .player-pill {
-    max-width: 160px;
-    overflow: hidden;
-    padding: 9px 12px;
-    border: 1px solid #5b4b82;
-    border-radius: 999px;
-    color: #e4d7ff;
-    background: #302544;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
 
   .layout {
-    display: grid;
-    grid-template-columns: 205px minmax(0, 1fr) 270px;
-    gap: 16px;
-    max-width: 1500px;
-    margin: auto;
-    padding: 20px;
+    max-width: 1450px; margin: auto; padding: 24px;
+    display: grid; grid-template-columns: 220px minmax(0,1fr) 285px; gap: 18px;
   }
   .panel, .side-panel {
-    border: 1px solid #ffffff12;
-    border-radius: 20px;
-    background: var(--panel);
-    box-shadow: 0 14px 35px #05081433;
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: 22px; box-shadow: var(--shadow);
   }
-  .sidebar { height: fit-content; padding: 11px; }
+  .sidebar { padding: 12px; height: fit-content; }
   .nav-button {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-    margin: 3px 0;
-    padding: 12px;
-    border: 0;
-    border-radius: 12px;
-    color: var(--muted);
-    background: transparent;
-    text-align: left;
-    font-weight: 750;
+    width: 100%; display: flex; align-items: center; gap: 11px;
+    padding: 13px 14px; margin: 3px 0; border: 0; border-radius: 13px;
+    background: transparent; color: var(--muted); text-align: left;
+    font-weight: 750; cursor: pointer; transition: .18s;
   }
-  .nav-button:hover { color: white; background: #ffffff0d; }
-  .nav-button.active {
-    color: #17172a;
-    background: linear-gradient(100deg, var(--yellow), var(--pink));
-  }
-  .nav-icon { font-size: 18px; }
+  .nav-button:hover { background: #f5f3ff; color: var(--purple); transform: translateX(2px); }
+  .nav-button.active { color: white; background: linear-gradient(100deg, var(--purple), #a879ff); box-shadow: 0 7px 17px #9070f44d; }
+  .nav-icon { font-size: 19px; }
 
-  .content { min-height: 670px; padding: 21px; }
-  .page-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 17px;
-  }
-  .page-head h2 { margin: 0; font-size: 23px; }
-  .subtitle { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
-  .day-pill {
-    flex: none;
-    padding: 8px 12px;
-    border: 1px solid #695728;
-    border-radius: 999px;
-    color: var(--yellow);
-    background: #3b321d;
-    font-weight: 850;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
-    gap: 13px;
-  }
+  .content { min-height: 680px; padding: 23px; }
+  .page-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+  .page-head h2 { margin: 0; font-size: 24px; }
+  .day-pill { border-radius: 999px; padding: 8px 13px; font-weight: 800; color: #966300; background: #fff5d9; }
+  .subtitle { margin: 5px 0 0; color: var(--muted); font-size: 14px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(205px, 1fr)); gap: 14px; }
   .card {
-    padding: 14px;
-    border: 1px solid #ffffff12;
-    border-radius: 16px;
-    background: linear-gradient(145deg, var(--panel-2), #1b2540);
-    transition: transform .16s, border-color .16s;
+    overflow: hidden; padding: 15px; border: 1px solid var(--line);
+    border-radius: 18px; background: linear-gradient(145deg, #fff, #fbfaff);
+    transition: transform .18s, box-shadow .18s, border-color .18s;
   }
-  .card:hover { transform: translateY(-3px); border-color: #a78bfa77; }
+  .card:hover { transform: translateY(-3px); border-color: #c9bcff; box-shadow: 0 12px 25px #7881b51c; }
   .item-art {
-    display: grid;
-    place-items: center;
-    height: 83px;
-    margin-bottom: 11px;
-    border-radius: 13px;
-    background: linear-gradient(135deg, #48314f, #244356);
-    font-size: 43px;
+    height: 95px; display: grid; place-items: center; margin-bottom: 12px;
+    border-radius: 14px; font-size: 49px;
+    background: linear-gradient(135deg, #fff0f7, #edfaff);
   }
-  .tag {
-    display: inline-block;
-    padding: 4px 8px;
-    border-radius: 99px;
-    color: var(--cyan);
-    background: #164054;
-    font-size: 10px;
-    font-weight: 900;
-    text-transform: uppercase;
-  }
-  .card h3 { margin: 8px 0 4px; font-size: 15px; }
-  .description, .stock-info { color: var(--muted); font-size: 12px; line-height: 1.5; }
-  .price-line {
-    display: flex;
-    justify-content: space-between;
-    gap: 8px;
-    margin: 11px 0;
-    font-size: 12px;
-    font-weight: 850;
-  }
+  .tag { display: inline-block; padding: 4px 8px; border-radius: 99px; background: #f0edff; color: var(--purple); font-size: 10px; font-weight: 900; text-transform: uppercase; }
+  .card h3 { margin: 8px 0 4px; font-size: 16px; }
+  .description { min-height: 18px; color: var(--muted); font-size: 12px; }
+  .price-line { display: flex; justify-content: space-between; gap: 8px; margin: 12px 0; font-size: 12px; font-weight: 800; }
   .cost { color: var(--pink); }
   .sell-price { color: var(--green); }
+  .stock-info { margin: 10px 0; color: var(--muted); font-size: 13px; }
+  .primary, .secondary, .danger {
+    min-height: 39px; padding: 9px 13px; border: 0; border-radius: 11px;
+    font-weight: 850; cursor: pointer; transition: .15s;
+  }
+  .primary { width: 100%; color: white; background: linear-gradient(100deg, var(--purple), #a879ff); box-shadow: 0 5px 12px #8866ec38; }
+  .primary:hover:not(:disabled) { filter: brightness(1.06); transform: translateY(-1px); }
+  .primary:disabled { opacity: .43; cursor: not-allowed; box-shadow: none; }
+  .secondary { color: #206f8e; background: #e6f9ff; }
+  .secondary:hover { background: #d3f4ff; }
+  .danger { color: #c04661; background: #fff0f2; }
+  .empty { grid-column: 1/-1; padding: 36px 20px; text-align: center; color: var(--muted); border: 2px dashed #dfe3f7; border-radius: 17px; }
   .hidden { display: none !important; }
 
-  .side-panel { height: fit-content; padding: 15px; }
-  .side-panel h3 { margin: 0 0 11px; font-size: 15px; }
-  .quick-card {
-    margin-bottom: 15px;
-    padding: 13px;
-    border: 1px solid #514975;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #332947, #1d3447);
-  }
-  .quick-card p { margin: 5px 0 0; color: #c2c9df; font-size: 12px; line-height: 1.5; }
-  .log { max-height: 270px; overflow-y: auto; }
-  .log-entry {
-    margin: 7px 0;
-    padding: 9px 10px;
-    border-left: 3px solid var(--cyan);
-    border-radius: 8px;
-    color: #c1c9df;
-    background: #ffffff08;
-    font-size: 11px;
-  }
-  .small-note { color: var(--muted); font-size: 11px; line-height: 1.5; }
-  .side-actions { display: flex; justify-content: space-between; gap: 7px; margin-top: 12px; }
-  .side-actions button { padding: 8px 10px; font-size: 11px; }
+  .side-panel { padding: 17px; height: fit-content; }
+  .side-panel h3 { margin: 0 0 13px; font-size: 16px; }
+  .quick-card { padding: 13px; border-radius: 15px; background: linear-gradient(135deg, #f1edff, #f5faff); margin-bottom: 15px; }
+  .quick-card strong { display: block; margin-bottom: 5px; }
+  .quick-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+  .log { max-height: 275px; overflow-y: auto; }
+  .log-entry { margin: 8px 0; padding: 9px 10px; border-radius: 10px; background: #f7f8ff; color: #647294; font-size: 12px; }
+  .log-entry.good { border-left: 3px solid var(--green); }
+  .log-entry.info { border-left: 3px solid var(--cyan); }
+  .small-note { margin-top: 12px; color: var(--muted); font-size: 11px; line-height: 1.5; }
 
-  /* Missions et quiz */
-  .quest-card, .quiz-card {
-    padding: 17px;
-    border: 1px solid #ffffff17;
-    border-radius: 17px;
-    background: linear-gradient(135deg, #342c44, #20354a);
-  }
-  .quest-card { margin-bottom: 15px; }
-  .quest-card h3, .quiz-card h3 { margin: 9px 0; }
-  .quest-card p, .quiz-card p { color: #c0c8de; line-height: 1.5; }
-  .progress { height: 9px; overflow: hidden; border-radius: 99px; background: #0e1426; }
-  .progress div { height: 100%; background: linear-gradient(90deg, var(--cyan), var(--purple), var(--pink)); }
+  .quest-card { padding: 18px; border-radius: 18px; background: linear-gradient(135deg, #fff5d9, #fff0f8); border: 1px solid #ffe6b1; }
+  .quest-card h3 { margin: 8px 0; }
+  .quest-card p { color: var(--muted); }
+  .progress { height: 10px; overflow: hidden; border-radius: 20px; background: #e7e9f4; margin: 12px 0; }
+  .progress > div { height: 100%; background: linear-gradient(90deg, var(--pink), var(--purple)); transition: width .25s; }
+  .quiz { margin-top: 18px; padding: 18px; border-radius: 18px; background: linear-gradient(135deg, #eafaff, #f3efff); border: 1px solid #dcefff; }
+  .quiz h3 { margin: 0 0 8px; }
+  .quiz p { color: var(--muted); }
   .answer-list { display: grid; gap: 8px; margin-top: 12px; }
-  .answer {
-    padding: 11px 12px;
-    border: 1px solid #ffffff20;
-    border-radius: 11px;
-    color: var(--text);
-    background: #111a2d;
-    text-align: left;
-  }
-  .answer:hover:not(:disabled) { border-color: var(--cyan); background: #1c3041; }
-  .answer:disabled { opacity: .7; cursor: default; }
-  .feedback { min-height: 20px; margin-top: 10px; font-size: 13px; font-weight: 800; }
-  .empty {
-    grid-column: 1 / -1;
-    padding: 35px 20px;
-    border: 2px dashed #566181;
-    border-radius: 16px;
-    color: var(--muted);
-    text-align: center;
-  }
+  .answer { padding: 11px 13px; border: 1px solid #dfe3f7; border-radius: 11px; color: var(--ink); background: white; text-align: left; cursor: pointer; }
+  .answer:hover:not(:disabled) { border-color: var(--purple); background: #faf8ff; }
+  .answer:disabled { cursor: default; opacity: .75; }
+  .feedback { min-height: 22px; margin-top: 10px; font-size: 13px; font-weight: 800; }
+  .employee-banner { padding: 14px; border-radius: 14px; background: #eafff6; color: #257557; margin-bottom: 15px; }
+  .roll-wrap { grid-column: 1/-1; padding: 22px; border-radius: 20px; background: linear-gradient(135deg,#21194e,#5535a5 55%,#8a4fc0); color: white; text-align:center; box-shadow: 0 12px 28px #6440a533; }
+  .roll-wrap h3 { margin: 5px 0 8px; font-size: 25px; }
+  .roll-display { min-height: 135px; display:grid; place-items:center; margin:18px auto; max-width:360px; border-radius:18px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); font-size:62px; }
+  .roll-wrap .primary { max-width:260px; margin:auto; background:linear-gradient(100deg,#ff75b6,#ffd45a); color:#45235e; }
+  .rarity-common { border-color:#b9c4d8 !important; } .rarity-uncommon { border-color:#48c98b !important; } .rarity-rare { border-color:#51b9f3 !important; } .rarity-epic { border-color:#b27bff !important; } .rarity-legendary { border-color:#ffb94f !important; } .rarity-mythic { border-color:#ff70b4 !important; } .rarity-secret { border-color:#20202c !important; box-shadow:0 0 16px #1c1c2c30; }
+  .rarity-label { font-weight:900; letter-spacing:.5px; }
+  .index-summary { grid-column:1/-1; padding:14px; background:#f4f2ff; border-radius:14px; font-weight:800; }
+  .employee-card .item-art { height:105px; }
   .toast {
-    position: fixed;
-    right: 18px;
-    bottom: 18px;
-    z-index: 30;
-    padding: 13px 16px;
-    border: 1px solid #ffffff20;
-    border-radius: 12px;
-    color: white;
-    background: #252d48;
-    box-shadow: 0 12px 35px #0007;
-    opacity: 0;
-    transform: translateY(12px);
-    transition: .2s;
-    pointer-events: none;
+    position: fixed; right: 20px; bottom: 20px; z-index: 10;
+    padding: 13px 17px; background: var(--ink); color: white;
+    border-radius: 13px; box-shadow: var(--shadow);
+    opacity: 0; transform: translateY(15px); transition: .2s; pointer-events: none;
   }
   .toast.show { opacity: 1; transform: translateY(0); }
+  .footer-actions { display: flex; justify-content: flex-end; margin-top: 22px; }
 
   @media (max-width: 1050px) {
-    .layout { grid-template-columns: 180px minmax(0, 1fr); }
+    .layout { grid-template-columns: 190px minmax(0,1fr); }
     .side-panel { grid-column: 2; }
   }
   @media (max-width: 700px) {
     .topbar { position: static; align-items: flex-start; flex-direction: column; }
-    .top-right { width: 100%; justify-content: space-between; flex-wrap: wrap; }
-    .top-stats { flex: 1; }
-    .top-stat { flex: 1; min-width: 100px; }
-    .layout { display: block; padding: 11px; }
-    .sidebar { margin-bottom: 11px; }
+    .top-stats { width: 100%; }
+    .top-stat { flex: 1; min-width: 0; }
+    .layout { display: block; padding: 12px; }
+    .sidebar { margin-bottom: 12px; }
     .sidebar nav { display: flex; overflow-x: auto; }
-    .nav-button { width: auto; flex: none; }
-    .content { min-height: 500px; margin-bottom: 11px; padding: 15px; }
+    .nav-button { min-width: max-content; width: auto; }
+    .content { min-height: 500px; padding: 16px; margin-bottom: 12px; }
     .side-panel { margin-bottom: 15px; }
+    .page-head h2 { font-size: 20px; }
   }
-</style>
-</head>
-<body>
-
-<!-- Première étape : création du pseudo -->
-<div id="name-screen" class="screen hidden">
-  <div class="welcome-box">
-    <div class="welcome-logo">🛍️</div>
-    <h1>Bienvenue sur PopShop !</h1>
-    <p>Choisis ton pseudo de commerçant. Il sera sauvegardé sur cet appareil avec ta partie.</p>
-    <form id="name-form">
-      <input id="name-input" class="name-input" maxlength="20" autocomplete="nickname"
-             placeholder="Ton pseudo…" aria-label="Ton pseudo" required>
-      <p id="name-hint" class="hint"></p>
-      <button class="primary" type="submit">Créer ma boutique →</button>
-    </form>
-  </div>
-</div>
-
-<!-- Deuxième étape : explication sur fond noir -->
-<div id="guide-screen" class="screen hidden">
-  <div class="welcome-box">
-    <div class="welcome-logo">🚀</div>
-    <h1>Le but du jeu</h1>
-    <p>Bienvenue, <strong id="guide-name" style="color:var(--yellow)"></strong> ! Tu commences avec <strong style="color:var(--green)">500 €</strong>.</p>
-    <div class="welcome-steps">
-      <div class="welcome-step"><b>1.</b> Achète des produits chez les fournisseurs.</div>
-      <div class="welcome-step"><b>2.</b> Mets-les en vente pour gagner de l’argent.</div>
-      <div class="welcome-step"><b>3.</b> Embauche des employés : ils vendent automatiquement et améliorent le prix ainsi que la qualité.</div>
-      <div class="welcome-step"><b>4.</b> Termine les missions et réponds au quiz pour gagner des récompenses.</div>
-    </div>
-    <p>Surveille ton argent : une commande ou une embauche ne peut être achetée que si tu as assez de fonds.</p>
-    <button id="start-game" class="primary">Ouvrir ma boutique ✨</button>
-  </div>
-</div>
-
-<header class="topbar">
-  <div class="brand">
-    <div class="brand-icon">🛍️</div>
-    <div><h1>PopShop</h1><small>Gestion de boutique</small></div>
-  </div>
-  <div class="top-right">
-    <div class="top-stats">
-      <div class="top-stat"><span>💰 Argent</span><strong id="money">500 €</strong></div>
-      <div class="top-stat profit"><span>📈 Résultat net</span><strong id="profit">0 €</strong></div>
-    </div>
-    <div class="player-pill" id="player-name">👤 Commerçant</div>
-  </div>
-</header>
-
-<main class="layout">
-  <aside class="panel sidebar">
-    <nav>
-      <button class="nav-button active" data-page="market"><span class="nav-icon">📦</span> Fournisseurs</button>
-      <button class="nav-button" data-page="shop"><span class="nav-icon">🏪</span> Ma boutique</button>
-      <button class="nav-button" data-page="employees"><span class="nav-icon">🧑‍💼</span> Employés</button>
-      <button class="nav-button" data-page="quests"><span class="nav-icon">🏆</span> Missions & quiz</button>
-      <button class="nav-button" data-page="guide"><span class="nav-icon">📖</span> Règles du jeu</button>
-    </nav>
-  </aside>
-
-  <section class="panel content">
-    <div class="page-head">
-      <div>
-        <h2 id="page-title">Fournisseurs</h2>
-        <p id="page-subtitle" class="subtitle">Commande des articles pour remplir ton stock.</p>
-      </div>
-      <div id="day" class="day-pill">Jour 1</div>
-    </div>
-    <div id="market" class="grid"></div>
-    <div id="shop" class="grid hidden"></div>
-    <div id="employees" class="grid hidden"></div>
-    <div id="quests" class="hidden"></div>
-    <div id="guide" class="hidden">
-      <div class="quest-card">
-        <span class="tag">📖 Comment jouer</span>
-        <h3>Fais grandir ta boutique</h3>
-        <p>Tu commences avec 500 €. Commande des articles, puis vends-les à un prix supérieur à leur coût d’achat.</p>
-        <p>Les employés vendent automatiquement un article disponible toutes les quelques secondes. Chaque embauche augmente aussi le bonus de prix et la qualité de tes ventes.</p>
-        <p>Les missions et le quiz changent chaque jour de jeu. Les progrès et ton pseudo sont sauvegardés automatiquement dans ce navigateur.</p>
-      </div>
-    </div>
-  </section>
-
-  <aside class="side-panel">
-    <div class="quick-card">
-      <strong>✨ Ton commerce</strong>
-      <p>Achète malin, garde du stock et développe ton équipe pour faire grandir PopShop.</p>
-    </div>
-    <h3>📣 Activité récente</h3>
-    <div id="log" class="log"></div>
-    <p class="small-note">Partie sauvegardée automatiquement sur cet appareil.</p>
-    <div class="side-actions">
-      <button id="change-name" class="secondary">Changer le pseudo</button>
-      <button id="reset" class="danger">Recommencer</button>
-    </div>
-  </aside>
-</main>
-
-<div id="toast" class="toast"></div>
-
-<script>
-(() => {
-  "use strict";
-
-  const SAVE_KEY = "popshop_save_v1";
-  const START_MONEY = 500;
-
-  const products = [
-    {id:"stickers", name:"Pack de stickers", emoji:"🌈", category:"Petits trésors", cost:5, price:9},
-    {id:"pen", name:"Stylo pailleté", emoji:"🖊️", category:"Papeterie", cost:8, price:14},
-    {id:"mug", name:"Mug coloré", emoji:"☕", category:"Maison", cost:14, price:24},
-    {id:"plant", name:"Mini plante", emoji:"🪴", category:"Maison", cost:22, price:37},
-    {id:"tshirt", name:"T-shirt tendance", emoji:"👕", category:"Mode", cost:32, price:52},
-    {id:"bag", name:"Sac à dos", emoji:"🎒", category:"Mode", cost:55, price:88},
-    {id:"headphones", name:"Casque audio", emoji:"🎧", category:"Électronique", cost:95, price:149},
-    {id:"watch", name:"Montre connectée", emoji:"⌚", category:"Électronique", cost:165, price:249},
-    {id:"camera", name:"Appareil photo", emoji:"📸", category:"Tech premium", cost:290, price:425},
-    {id:"console", name:"Console de jeu", emoji:"🎮", category:"Tech premium", cost:480, price:690},
-    {id:"scooter", name:"Scooter électrique", emoji:"🛵", category:"Mobilité", cost:950, price:1320},
-    {id:"sofa", name:"Canapé design", emoji:"🛋️", category:"Luxe", cost:1800, price:2450},
-    {id:"bike", name:"Vélo électrique", emoji:"🚲", category:"Mobilité", cost:3200, price:4300},
-    {id:"car", name:"Voiture de collection", emoji:"🏎️", category:"Prestige", cost:5000, price:6650},
-    {id:"diamond", name:"Bague en diamant", emoji:"💍", category:"Prestige", cost:8500, price:11200},
-    {id:"yacht", name:"Mini yacht", emoji:"🛥️", category:"Prestige", cost:14000, price:18500},
-    {id:"art", name:"Tableau de collection", emoji:"🖼️", category:"Collection", cost:26000, price:34500},
-    {id:"rocket", name:"Fusée de tourisme", emoji:"🚀", category:"Légendaire", cost:50000, price:67000}
-  ];
-
-  const employeeTypes = [
-    {name:"Vendeur débutant", emoji:"🙂", priceBonus:0.03, quality:2},
-    {name:"Vendeur confirmé", emoji:"😎", priceBonus:0.05, quality:3},
-    {name:"Conseiller expert", emoji:"🧑‍💻", priceBonus:0.07, quality:4},
-    {name:"Responsable qualité", emoji:"🧑‍🔬", priceBonus:0.09, quality:6},
-    {name:"Directeur commercial", emoji:"🧑‍💼", priceBonus:0.12, quality:8},
-    {name:"Star du commerce", emoji:"🌟", priceBonus:0.15, quality:10}
-  ];
-
-  const questions = [
-    {q:"Tu achètes un produit 20 € et le vends 32 €. Quel est ton bénéfice brut ?", answers:["12 €","20 €","52 €"], correct:0},
-    {q:"Que vaut-il mieux vérifier avant de commander beaucoup de stock ?", answers:["La demande des clients","La couleur du ciel","Le prix des concurrents au hasard"], correct:0},
-    {q:"Un article coûte 35 € et se vend 50 €. Quelle est la différence entre les deux prix ?", answers:["15 €","35 €","85 €"], correct:0},
-    {q:"Ton stock est presque vide et les ventes marchent bien. Que peux-tu faire ?", answers:["Commander du stock","Fermer la boutique","Supprimer tes produits"], correct:0},
-    {q:"Pourquoi garder une réserve d'argent ?", answers:["Pour pouvoir financer les commandes","Pour empêcher les ventes","Pour faire baisser ton stock"], correct:0}
-  ];
-
-  function newState() {
-    return {
-      playerName: "",
-      money: START_MONEY,
-      day: 1,
-      stock: Object.fromEntries(products.map(p => [p.id, 0])),
-      employees: 0,
-      sales: 0,
-      revenue: 0,
-      spent: 0,
-      logs: [],
-      quest: null,
-      quizDay: 1,
-      quizDone: false
-    };
-  }
-
-  let state = newState();
-  let toastTimer;
-
-  function safeInt(value, fallback=0) {
-    const n = Number(value);
-    return Number.isSafeInteger(n) && n >= 0 ? n : fallback;
-  }
-
-  function loadGame() {
-    try {
-      const raw = localStorage.getItem(SAVE_KEY);
-      if (!raw) return;
-      const saved = JSON.parse(raw);
-      if (!saved || typeof saved !== "object") return;
-
-      state.playerName = typeof saved.playerName === "string" ? saved.playerName.slice(0, 20) : "";
-      state.money = safeInt(saved.money, START_MONEY);
-      state.day = Math.max(1, safeInt(saved.day, 1));
-      state.employees = Math.min(100, safeInt(saved.employees, 0));
-      state.sales = safeInt(saved.sales, 0);
-      state.revenue = safeInt(saved.revenue, 0);
-      state.spent = safeInt(saved.spent, 0);
-      state.stock = Object.fromEntries(
-        products.map(p => [p.id, safeInt(saved.stock && saved.stock[p.id], 0)])
-      );
-      state.logs = Array.isArray(saved.logs)
-        ? saved.logs.filter(x => typeof x === "string").slice(0, 30)
-        : [];
-      state.quizDay = Math.max(1, safeInt(saved.quizDay, state.day));
-      state.quizDone = Boolean(saved.quizDone);
-
-      if (saved.quest && ["sales", "orders", "revenue"].includes(saved.quest.type)) {
-        state.quest = {
-          type: saved.quest.type,
-          target: Math.max(1, safeInt(saved.quest.target, 3)),
-          progress: safeInt(saved.quest.progress, 0),
-          reward: safeInt(saved.quest.reward, 60),
-          claimed: Boolean(saved.quest.claimed)
-        };
-      }
-    } catch (error) {
-      console.warn("La sauvegarde n'a pas pu être lue.", error);
-    }
-  }
-
-  function saveGame() {
-    try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); }
-    catch (error) { console.warn("La sauvegarde n'a pas pu être faite.", error); }
-  }
-
-  function euro(amount) {
-    return Math.round(amount).toLocaleString("fr-FR") + " €";
-  }
-
-  function netResult() {
-    return state.money - START_MONEY;
-  }
-
-  function employeeBonuses() {
-    let priceBonus = 0;
-    let quality = 0;
-    for (let i = 0; i < state.employees; i++) {
-      const type = employeeTypes[Math.min(i, employeeTypes.length - 1)];
-      priceBonus += type.priceBonus;
-      quality += type.quality;
-    }
-    return {
-      priceBonus: Math.min(priceBonus, 1),
-      quality: Math.min(quality, 100)
-    };
-  }
-
-  // Le prix de revente augmente grâce aux employés ; la qualité renforce aussi la vente.
-  function effectivePrice(product) {
-    const bonus = employeeBonuses();
-    const qualityMultiplier = 1 + bonus.quality / 100;
-    return Math.max(1, Math.round(product.price * (1 + bonus.priceBonus) * qualityMultiplier));
-  }
-
-  function addLog(message) {
-    state.logs.unshift(message);
-    state.logs = state.logs.slice(0, 30);
-    renderLog();
-    saveGame();
-  }
-
-  function showToast(message) {
-    const el = document.getElementById("toast");
-    el.textContent = message;
-    el.classList.add("show");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => el.classList.remove("show"), 2300);
-  }
-
-  function spend(amount) {
-    amount = Math.round(amount);
-    if (!Number.isSafeInteger(amount) || amount < 0 || state.money < amount) return false;
-    state.money -= amount;
-    state.spent += amount;
-    return true;
-  }
-
-  function earn(amount) {
-    amount = Math.round(amount);
-    if (!Number.isSafeInteger(amount) || amount <= 0 ||
-        state.money > Number.MAX_SAFE_INTEGER - amount) return false;
-    state.money += amount;
-    return true;
-  }
-
-  function createQuest() {
-    const options = [
-      {type:"sales", target:3, reward:70},
-      {type:"orders", target:4, reward:85},
-      {type:"revenue", target:150, reward:100}
-    ];
-    const q = options[(state.day - 1) % options.length];
-    state.quest = {...q, progress:0, claimed:false};
-  }
-
-  function progressQuest(type, amount=1) {
-    const q = state.quest;
-    if (!q || q.claimed || q.type !== type) return;
-    q.progress = Math.min(q.target, q.progress + amount);
-  }
-
-  function buyProduct(product) {
-    if (!spend(product.cost)) {
-      showToast("Tu n'as pas assez d'argent pour cette commande.");
-      return;
-    }
-    state.stock[product.id]++;
-    progressQuest("orders");
-    addLog(`📦 Commande reçue : ${product.name}.`);
-    showToast(`${product.name} ajouté au stock !`);
-    render();
-  }
-
-  function sellProduct(product, automatic=false) {
-    if (!state.stock[product.id]) return false;
-    const price = effectivePrice(product);
-    if (!earn(price)) {
-      showToast("Le solde maximum est atteint.");
-      return false;
-    }
-
-    state.stock[product.id]--;
-    state.sales++;
-    state.revenue += price;
-    progressQuest("sales");
-    progressQuest("revenue", price);
-    addLog(`${automatic ? "🧑‍💼 Vente par un employé" : "🛍️ Vente"} : ${product.name}, +${euro(price)}.`);
-    return true;
-  }
-
-  function nextEmployeeCost() {
-    const amount = 150 * Math.pow(1.72, state.employees);
-    return Math.min(Number.MAX_SAFE_INTEGER, Math.round(amount));
-  }
-
-  function hireEmployee() {
-    if (state.employees >= 100) {
-      showToast("Ton équipe a atteint sa limite.");
-      return;
-    }
-    const cost = nextEmployeeCost();
-    if (!spend(cost)) {
-      showToast("Pas assez d'argent pour embaucher.");
-      return;
-    }
-    const type = employeeTypes[Math.min(state.employees, employeeTypes.length - 1)];
-    state.employees++;
-    addLog(`🎉 ${type.name} embauché pour ${euro(cost)} !`);
-    showToast(`${type.name} rejoint ton équipe !`);
-    render();
-  }
-
-  function claimQuest() {
-    const q = state.quest;
-    if (!q || q.claimed || q.progress < q.target) return;
-    q.claimed = true;
-    earn(q.reward);
-    addLog(`🏆 Mission terminée : +${euro(q.reward)}.`);
-    showToast(`Mission réussie : +${euro(q.reward)} !`);
-    render();
-  }
-
-  function answerQuiz(index) {
-    if (state.quizDone && state.quizDay === state.day) return;
-    const q = questions[(state.day - 1) % questions.length];
-    state.quizDone = true;
-    state.quizDay = state.day;
-
-    const feedback = document.getElementById("quiz-feedback");
-    document.querySelectorAll(".answer").forEach(button => button.disabled = true);
-
-    if (index === q.correct) {
-      earn(40);
-      feedback.textContent = "✅ Bonne réponse ! Tu gagnes 40 €.";
-      feedback.style.color = "var(--green)";
-      addLog("🧠 Bonne réponse au quiz : +40 €.");
-    } else {
-      feedback.textContent = `Pas tout à fait ! La bonne réponse était : ${q.answers[q.correct]}.`;
-      feedback.style.color = "var(--pink)";
-      addLog("🧠 Quiz du jour terminé.");
-    }
-    saveGame();
-    renderHeader();
-  }
-
-  function renderHeader() {
-    document.getElementById("money").textContent = euro(state.money);
-    const result = netResult();
-    const profit = document.getElementById("profit");
-    profit.textContent = (result > 0 ? "+" : "") + euro(result);
-    profit.style.color = result < 0 ? "var(--red)" : "var(--purple)";
-    document.getElementById("day").textContent = "Jour " + state.day;
-    document.getElementById("player-name").textContent = "👤 " + (state.playerName || "Commerçant");
-  }
-
-  function renderLog() {
-    const container = document.getElementById("log");
-    container.innerHTML = "";
-    if (!state.logs.length) {
-      const entry = document.createElement("div");
-      entry.className = "log-entry";
-      entry.textContent = "Bienvenue ! Ta boutique ouvre ses portes.";
-      container.appendChild(entry);
-      return;
-    }
-    state.logs.forEach(message => {
-      const entry = document.createElement("div");
-      entry.className = "log-entry";
-      entry.textContent = message;
-      container.appendChild(entry);
-    });
-  }
-
-  function renderMarket() {
-    const container = document.getElementById("market");
-    container.innerHTML = "";
-    products.forEach(product => {
-      const card = document.createElement("article");
-      card.className = "card";
-      card.innerHTML = `
-        <div class="item-art">${product.emoji}</div>
-        <span class="tag">${product.category}</span>
-        <h3>${product.name}</h3>
-        <p class="description">En stock : ${state.stock[product.id]}</p>
-        <div class="price-line">
-          <span class="cost">Achat ${euro(product.cost)}</span>
-          <span class="sell-price">Vente ${euro(effectivePrice(product))}</span>
-        </div>
-        <button class="primary" ${state.money < product.cost ? "disabled" : ""}>Commander</button>`;
-      card.querySelector("button").addEventListener("click", () => buyProduct(product));
-      container.appendChild(card);
-    });
-  }
-
-  function renderShop() {
-    const container = document.getElementById("shop");
-    container.innerHTML = "";
-    const stocked = products.filter(p => state.stock[p.id] > 0);
-
-    if (!stocked.length) {
-      container.innerHTML = `
-        <div class="empty">
-          <div style="font-size:42px">🛍️</div>
-          <h3>Ta boutique attend ses premiers articles !</h3>
-          <p>Va chez les fournisseurs pour commander du stock.</p>
-        </div>`;
-      return;
-    }
-
-    stocked.forEach(product => {
-      const card = document.createElement("article");
-      card.className = "card";
-      card.innerHTML = `
-        <div class="item-art">${product.emoji}</div>
-        <span class="tag">${product.category}</span>
-        <h3>${product.name}</h3>
-        <p class="stock-info">📦 Stock disponible : <strong>${state.stock[product.id]}</strong></p>
-        <div class="price-line"><span class="sell-price">Prix de vente</span><span class="sell-price">${euro(effectivePrice(product))}</span></div>
-        <button class="primary">Vendre un article</button>`;
-      card.querySelector("button").addEventListener("click", () => {
-        if (sellProduct(product)) {
-          showToast(`Vente réussie : +${euro(effectivePrice(product))} !`);
-          render();
-        }
-      });
-      container.appendChild(card);
-    });
-  }
-
-  function renderEmployees() {
-    const container = document.getElementById("employees");
-    const bonuses = employeeBonuses();
-    const cost = nextEmployeeCost();
-    const nextType = employeeTypes[Math.min(state.employees, employeeTypes.length - 1)];
-
-    container.innerHTML = `
-      <div class="card" style="grid-column:1/-1">
-        <span class="tag">✨ Bonus de l'équipe</span>
-        <h3>${state.employees} employé${state.employees > 1 ? "s" : ""} dans ton équipe</h3>
-        <p class="description">
-          Bonus de prix : <strong class="sell-price">+${Math.round(bonuses.priceBonus * 100)} %</strong>
-          &nbsp;·&nbsp; Qualité : <strong style="color:var(--cyan)">${bonuses.quality}/100</strong>
-        </p>
-        <p class="description">Chaque employé vend automatiquement un article de ton stock toutes les 8 secondes environ.</p>
-      </div>
-
-      <div class="card">
-        <div class="item-art">${nextType.emoji}</div>
-        <span class="tag">Prochain recrutement</span>
-        <h3>${nextType.name}</h3>
-        <p class="description">Améliore le prix de revente de ${Math.round(nextType.priceBonus * 100)} % et la qualité de ${nextType.quality} points.</p>
-        <div class="price-line"><span>Coût d'embauche</span><span class="cost">${euro(cost)}</span></div>
-        <button class="primary" id="hire-button" ${state.money < cost || state.employees >= 100 ? "disabled" : ""}>Embaucher</button>
-      </div>
-
-      <div class="card">
-        <div class="item-art">📈</div>
-        <span class="tag">Ventes améliorées</span>
-        <h3>Une meilleure expérience</h3>
-        <p class="description">Plus ton équipe progresse, plus les articles se vendent cher et plus leur qualité augmente.</p>
-        <p class="stock-info">Le nouveau prix de vente est visible dans les pages Fournisseurs et Ma boutique.</p>
-      </div>`;
-
-    document.getElementById("hire-button").addEventListener("click", hireEmployee);
-  }
-
-  function renderQuests() {
-    const container = document.getElementById("quests");
-    const q = state.quest;
-    const progress = q ? Math.min(q.progress, q.target) : 0;
-    const percent = q ? Math.min(100, Math.round(progress / q.target * 100)) : 0;
-    const title = !q ? "Mission du jour" :
-      q.type === "sales" ? "Ventes du jour" :
-      q.type === "orders" ? "Réassort malin" : "Belle journée";
-    const text = !q ? "" :
-      q.type === "sales" ? `Vends ${q.target} articles.` :
-      q.type === "orders" ? `Commande ${q.target} articles.` :
-      `Génère ${q.target} € de ventes.`;
-    const question = questions[(state.day - 1) % questions.length];
-    const answered = state.quizDone && state.quizDay === state.day;
-
-    container.innerHTML = `
-      <div class="quest-card">
-        <span class="tag">🏆 Mission du jour</span>
-        <h3>${title}</h3>
-        <p>${text}</p>
-        <div class="progress"><div style="width:${percent}%"></div></div>
-        <p><strong>${progress} / ${q ? q.target : 0}</strong> · Récompense : <strong>${euro(q ? q.reward : 0)}</strong></p>
-        <button id="claim-quest" class="primary" ${!q || q.claimed || progress < q.target ? "disabled" : ""}>
-          ${q && q.claimed ? "Récompense récupérée ✓" : "Récupérer ma récompense"}
-        </button>
-      </div>
-      <div class="quiz-card">
-        <span class="tag">🧠 Question du jour · +40 €</span>
-        <h3>Le quiz du commerçant</h3>
-        <p>${question.q}</p>
-        <div class="answer-list">
-          ${question.answers.map((answer, index) =>
-            `<button class="answer" data-answer="${index}" ${answered ? "disabled" : ""}>${answer}</button>`
-          ).join("")}
-        </div>
-        <div id="quiz-feedback" class="feedback">${answered ? "Tu as déjà répondu au quiz aujourd'hui." : ""}</div>
-      </div>`;
-
-    document.getElementById("claim-quest").addEventListener("click", claimQuest);
-    container.querySelectorAll(".answer").forEach(button => {
-      button.addEventListener("click", () => answerQuiz(Number(button.dataset.answer)));
-    });
-  }
-
-  function render() {
-    renderHeader();
-    renderMarket();
-    renderShop();
-    renderEmployees();
-    renderQuests();
-    renderLog();
-    saveGame();
-  }
-
-  const pageInfo = {
-    market:["Fournisseurs", "Commande des articles pour remplir ton stock."],
-    shop:["Ma boutique", "Vends tes articles et surveille ton stock."],
-    employees:["Mon équipe", "Embauche des employés qui vendent et améliorent tes produits."],
-    quests:["Missions & quiz", "Accomplis la mission du jour et réponds au quiz."],
-    guide:["Règles du jeu", "Les bases pour faire grandir ton commerce."]
-  };
-
-  function showPage(page) {
-    ["market", "shop", "employees", "quests", "guide"].forEach(id => {
-      document.getElementById(id).classList.toggle("hidden", id !== page);
-    });
-    document.querySelectorAll(".nav-button").forEach(button => {
-      button.classList.toggle("active", button.dataset.page === page);
-    });
-    document.getElementById("page-title").textContent = pageInfo[page][0];
-    document.getElementById("page-subtitle").textContent = pageInfo[page][1];
-  }
-
-  document.querySelectorAll(".nav-button").forEach(button => {
-    button.addEventListener("click", () => showPage(button.dataset.page));
-  });
-
-  function showNameScreen() {
-    document.getElementById("name-screen").classList.remove("hidden");
-    document.getElementById("guide-screen").classList.add("hidden");
-  }
-
-  document.getElementById("name-form").addEventListener("submit", event => {
-    event.preventDefault();
-    const name = document.getElementById("name-input").value.trim().replace(/\s+/g, " ").slice(0, 20);
-    if (!name) {
-      document.getElementById("name-hint").textContent = "Choisis un pseudo pour continuer.";
-      return;
-    }
-    state.playerName = name;
-    saveGame();
-    document.getElementById("guide-name").textContent = name;
-    document.getElementById("name-screen").classList.add("hidden");
-    document.getElementById("guide-screen").classList.remove("hidden");
-  });
-
-  document.getElementById("start-game").addEventListener("click", () => {
-    document.getElementById("guide-screen").classList.add("hidden");
-    if (!state.quest) createQuest();
-    addLog(`🌟 Bienvenue ${state.playerName} ! Ta boutique commence avec 500 €.`);
-    render();
-  });
-
-  document.getElementById("change-name").addEventListener("click", () => {
-    document.getElementById("name-input").value = state.playerName;
-    document.getElementById("name-hint").textContent = "";
-    showNameScreen();
-  });
-
-  document.getElementById("reset").addEventListener("click", () => {
-    if (!confirm("Recommencer la partie ? Ton argent, ton stock et tes employés seront remis à zéro.")) return;
-    const oldName = state.playerName;
-    state = newState();
-    state.playerName = oldName;
-    createQuest();
-    saveGame();
-    addLog(`🌟 Nouvelle partie pour ${state.playerName} : 500 € de départ.`);
-    render();
-    showPage("market");
-    showToast("Nouvelle partie lancée !");
-  });
-
-  loadGame();
-
-  // Première visite : pseudo puis explication. Les joueurs déjà connus reviennent à leur partie.
-  if (!state.playerName) {
-    showNameScreen();
-  } else {
-    document.getElementById("name-screen").classList.add("hidden");
-    document.getElementById("guide-screen").classList.add("hidden");
-    if (!state.quest) createQuest();
-    render();
-  }
-
-  // Chaque employé vend un article par cycle, sans jamais faire passer le stock sous zéro.
-  setInterval(() => {
-    if (state.employees < 1) return;
-    let madeSale = false;
-    for (let i = 0; i < state.employees; i++) {
-      const stocked = products.filter(product => state.stock[product.id] > 0);
-      if (!stocked.length) break;
-      const product = stocked[Math.floor(Math.random() * stocked.length)];
-      if (sellProduct(product, true)) madeSale = true;
-    }
-    if (madeSale) render();
-  }, 8000);
-
-  // Une journée dure une minute.
-  setInterval(() => {
-    state.day++;
-    state.quizDone = false;
-    state.quizDay = state.day;
-    createQuest();
-    addLog(`☀️ Jour ${state.day} : nouvelle mission et nouveau quiz !`);
-    render();
-    showToast(`Jour ${state.day} : tes nouveaux défis sont prêts !`);
-  }, 60000);
-})();
-</script>
-</body>
-</html>
